@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pitch Side Trading - Success</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400&amp;family=JetBrains+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#95d4b3",
+                        "primary-fixed-dim": "#ffb3b1",
+                        "surface-container-highest": "#353534",
+                        "on-tertiary-container": "#00311f",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary": "#b0c7f1",
+                        "on-primary-container": "#5b000e",
+                        "outline": "#ab8987",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#d5e3ff",
+                        "on-surface-variant": "#e4bebc",
+                        "primary": "#ffb3b1",
+                        "on-primary": "#680011",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-fixed": "#001b3c",
+                        "surface": "#131313",
+                        "background": "#131313",
+                        "on-tertiary-fixed": "#002114",
+                        "surface-variant": "#353534",
+                        "on-secondary-container": "#a2b9e2",
+                        "on-surface": "#e5e2e1",
+                        "inverse-primary": "#bb152c",
+                        "on-error": "#690005",
+                        "primary-container": "#ff535b",
+                        "surface-container-low": "#1c1b1b",
+                        "on-tertiary": "#003824",
+                        "on-background": "#e5e2e1",
+                        "tertiary-container": "#609d7f",
+                        "surface-container": "#201f1f",
+                        "secondary-container": "#334a6d",
+                        "on-secondary": "#183153",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdad8",
+                        "on-primary-fixed": "#410007",
+                        "surface-bright": "#393939",
+                        "on-secondary-fixed-variant": "#30476a",
+                        "on-tertiary-fixed-variant": "#0e5138",
+                        "tertiary-fixed": "#b1f0ce",
+                        "surface-container-lowest": "#0e0e0e",
+                        "outline-variant": "#5b403f",
+                        "surface-tint": "#ffb3b1",
+                        "surface-dim": "#131313",
+                        "secondary-fixed-dim": "#b0c7f1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#92001c",
+                        "tertiary": "#95d4b3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "stat-number": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "stat-number": ["20px", {"lineHeight": "24px", "fontWeight": "900"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        .confetti-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+        }
+        .goal-glow {
+            box-shadow: 0 0 40px rgba(187, 21, 44, 0.4);
+            filter: drop-shadow(0 0 15px rgba(255, 179, 177, 0.6));
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-hidden">
+<!-- Top Navigation Anchor (As per JSON hierarchy) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 w-full border-b border-outline-variant dark:border-outline-variant bg-surface dark:bg-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary">location_on</span>
+<span class="font-headline-md text-headline-md font-black text-on-surface dark:text-on-surface">Pitch Side Trading</span>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 transition-transform">tune</button>
+</header>
+<main class="relative h-screen w-full flex flex-col items-center justify-center pt-16">
+<!-- Background Asset: Goal Achievement -->
+<div class="absolute inset-0 z-0 overflow-hidden">
+<img alt="Success goal moment" class="w-full h-full object-cover opacity-60 scale-110 blur-[2px] brightness-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJAfQGvxebZnxbnXOyupdIAnOf0nkbEAm1R8yAsZwPpz7gLW7QPBVQo0JR8FCRth-CEVCUYUlFH5tlNvUBA0JLxAM64H8S0uKRrXP0Xs9as8gA4ztZCFqGnKjwjtfKnqyOI8rD3rdcADNXf0_51rAXM_eINSxNgJWrLfynoJ62AWbx8m5z1vb4YXWNHSqg9adU-pxn6ASQ_ZRQ1YHqh3aM3VobpyHHmWLuJqRGlzS3FkPghgZaTr-WS8QcavVy865oh_YFrAJ-rjI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+<!-- Confetti Animation Layer -->
+<canvas class="confetti-canvas" id="confetti"></canvas>
+<!-- Content Canvas -->
+<div class="relative z-30 flex flex-col items-center text-center px-margin-mobile w-full max-w-lg">
+<!-- Missing/Success Badge -->
+<div class="mb-stack-md bg-tertiary text-on-tertiary px-4 py-1 rounded-full font-label-caps text-label-caps uppercase tracking-widest shadow-lg shadow-tertiary/20">
+                ¡LOGRADO!
+            </div>
+<!-- Main Headline -->
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-background mb-unit animate-pulse-glow italic">
+                ¡GOOOOOL!
+            </h1>
+<p class="font-headline-md text-headline-md text-primary-container mb-stack-lg">
+                Intercambio Exitoso
+            </p>
+<!-- Trade Result Card -->
+<div class="w-full bg-surface-container-low/80 backdrop-blur-md rounded-xl border border-outline-variant p-stack-md mb-stack-lg flex items-center justify-between shadow-2xl">
+<div class="flex flex-col items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">RECIBISTE</span>
+<span class="font-headline-md text-headline-md text-on-surface">Lionel Messi</span>
+</div>
+<div class="w-16 h-16 rounded-lg bg-surface-container-highest flex items-center justify-center overflow-hidden border border-primary/30">
+<img alt="Argentina Flag" class="w-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCit7BbSeWj2wsLU-buDSBLuqfbfvWf2Dh9GbmtbIEQdFOeXDYbZOQ0ATPDJjIcpUIjy8a-GiiNm1kug8nodgXqvTciAxXgVL8xYzSicfoqD5_Nx9ZVTPtwMVL3_qPzrAtoFouXGRImAB8VazVYMqvodilBRyjRhvoZrYDiN7UXs1XJf0ioNiJ5ij7lGgmxd3cOeY7IXcuHp734r5Rcq4KIUxttdxUgZ2yjKFa1bHACFpAaEgqAP1a39lH4PqUEDCOx97n2AgXWh7E"/>
+</div>
+</div>
+<!-- CTA Actions -->
+<div class="flex flex-col gap-stack-md w-full">
+<button class="w-full h-14 bg-on-background text-background font-headline-md text-headline-md rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-xl">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">style</span>
+                    Ver mis figuritas
+                </button>
+<button class="w-full h-14 bg-transparent border-2 border-on-background text-on-background font-headline-md text-headline-md rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                    Seguir explorando
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Suppressing as per Task: Success/Transactional priority) -->
+<!-- The BottomNavBar is hidden on Success screen to prioritize focus on the result. -->
+<script>
+        // Micro-interaction: Confetti Effect
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const colors = ['#ffb3b1', '#95d4b3', '#b0c7f1', '#e5e2e1'];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = canvas.width / 2;
+                this.y = canvas.height / 2;
+                this.vx = (Math.random() - 0.5) * 20;
+                this.vy = (Math.random() - 0.5) * 20 - 10;
+                this.size = Math.random() * 8 + 4;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.rotation = Math.random() * 360;
+                this.gravity = 0.4;
+            }
+
+            update() {
+                this.vx *= 0.99;
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.rotation += 5;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        function initConfetti() {
+            for (let i = 0; i < 150; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                if (p.y > canvas.height) particles.splice(index, 1);
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // Trigger on load
+        setTimeout(() => {
+            initConfetti();
+            animate();
+        }, 300);
+
+        // Micro-interaction: Haptic simulation on buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(20);
+                }
+            });
+        });
+    </script>
+</body></html>

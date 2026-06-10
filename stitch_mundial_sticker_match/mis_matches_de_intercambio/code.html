@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Matches - Pitch Side Trading</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400;700&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Montserrat:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .match-glow {
+            box-shadow: 0 0 15px -3px rgba(149, 212, 179, 0.3);
+        }
+        .glass-card {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #2C2C2C;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed-variant": "#92001c",
+                      "inverse-surface": "#e5e2e1",
+                      "surface": "#131313",
+                      "on-primary-container": "#5b000e",
+                      "on-tertiary": "#003824",
+                      "surface-tint": "#ffb3b1",
+                      "on-secondary-container": "#a2b9e2",
+                      "secondary-container": "#334a6d",
+                      "on-surface": "#e5e2e1",
+                      "error": "#ffb4ab",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#0e5138",
+                      "surface-container-highest": "#353534",
+                      "secondary-fixed": "#d5e3ff",
+                      "on-tertiary-fixed": "#002114",
+                      "surface-dim": "#131313",
+                      "surface-variant": "#353534",
+                      "error-container": "#93000a",
+                      "surface-container-lowest": "#0e0e0e",
+                      "surface-container-low": "#1c1b1b",
+                      "outline": "#ab8987",
+                      "primary-fixed": "#ffdad8",
+                      "inverse-on-surface": "#313030",
+                      "on-secondary": "#183153",
+                      "surface-container": "#201f1f",
+                      "on-surface-variant": "#e4bebc",
+                      "tertiary-fixed-dim": "#95d4b3",
+                      "on-error": "#690005",
+                      "surface-container-high": "#2a2a2a",
+                      "on-secondary-fixed": "#001b3c",
+                      "on-tertiary-container": "#00311f",
+                      "secondary-fixed-dim": "#b0c7f1",
+                      "on-primary-fixed": "#410007",
+                      "surface-bright": "#393939",
+                      "primary": "#ffb3b1",
+                      "primary-container": "#ff535b",
+                      "primary-fixed-dim": "#ffb3b1",
+                      "tertiary-fixed": "#b1f0ce",
+                      "on-background": "#e5e2e1",
+                      "inverse-primary": "#bb152c",
+                      "secondary": "#b0c7f1",
+                      "tertiary-container": "#609d7f",
+                      "on-primary": "#680011",
+                      "on-secondary-fixed-variant": "#30476a",
+                      "outline-variant": "#5b403f",
+                      "background": "#131313",
+                      "tertiary": "#95d4b3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "stack-sm": "8px",
+                      "gutter": "16px",
+                      "margin-desktop": "40px",
+                      "unit": "4px",
+                      "stack-md": "16px",
+                      "stack-lg": "32px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "label-caps": ["JetBrains Mono"],
+                      "headline-md": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "stat-number": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "800"}],
+                      "stat-number": ["20px", {"lineHeight": "24px", "fontWeight": "900"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md">
+<!-- TopAppBar Shell -->
+<header class="bg-surface dark:bg-surface fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline-variant flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-stack-sm active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary dark:text-primary">location_on</span>
+<span class="font-headline-md text-headline-md font-black text-on-surface dark:text-on-surface">Pitch Side Trading</span>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors p-2 rounded-full">
+            tune
+        </button>
+</header>
+<main class="pt-20 pb-32 px-margin-mobile max-w-2xl mx-auto">
+<!-- Screen Title Section -->
+<div class="mb-stack-lg">
+<div class="flex items-center justify-between">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">My Matches</h1>
+<span class="bg-tertiary-container text-on-tertiary-container font-label-caps text-[10px] px-2 py-1 rounded-full uppercase tracking-widest">4 Ready</span>
+</div>
+<p class="text-on-surface-variant font-body-md mt-unit">Trade stickers to complete your World Cup collection.</p>
+</div>
+<!-- Matches List -->
+<div class="space-y-stack-md">
+<!-- Match Item 1 -->
+<div class="glass-card rounded-xl p-stack-md relative overflow-hidden active:scale-[0.98] transition-transform cursor-pointer match-glow">
+<div class="flex items-start justify-between mb-stack-md">
+<div class="flex items-center gap-stack-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-tertiary shadow-lg">
+<img class="w-full h-full object-cover" data-alt="A close-up professional headshot of a friendly young man with a slight smile, set against a dark, moody stadium tunnel background. The lighting is high-contrast, highlighting his features with a cool blue and warm red rim light, reflecting the high-energy competitive atmosphere of a premium sports trading app. The overall aesthetic is sleek and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAneEFLfhhTxf5iK-tOvx8aX0EBwWOWU4t2RazvIRtt_QoYZ6YH4Ux_o9i9WixPZZuOKFSVxb7I2wnZTzvrQXL3ikamHqUzVCSqVPoo0DUUhxa9E2lZA_nqbIwQDcL0skHycVfjwOb64E-VD-AdfmPcEuAZWmnVF7KcZALKAII-Oprd6whXWUDbCtzG4Iu4P_cKxWoQ3aaYs9LZYz7ujKvL0nR_fFWcbhO3INJNlsoRqIBCz-BmX2bHUhKXoovoSDW7EtNGxGBtvZI"/>
+</div>
+<div>
+<p class="font-headline-md text-body-lg text-on-surface leading-tight">Carlos</p>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<p class="text-[10px] font-label-caps text-tertiary uppercase">Active Match</p>
+</div>
+</div>
+</div>
+<div class="bg-tertiary text-on-tertiary px-stack-sm py-unit rounded font-label-caps text-[10px]">
+                        MATCH
+                    </div>
+</div>
+<div class="grid grid-cols-2 gap-stack-sm relative">
+<!-- Trade Divider -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="bg-surface-container-highest p-1 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-sm">sync</span>
+</div>
+</div>
+<!-- They Have (You Need) -->
+<div class="bg-surface-container rounded-lg p-stack-sm border border-outline-variant/30">
+<p class="font-label-caps text-[9px] text-on-surface-variant uppercase mb-unit">They Give</p>
+<p class="font-headline-md text-body-md text-primary truncate">Kylian Mbappé</p>
+<p class="font-label-caps text-[10px] text-on-tertiary-fixed-variant">#FRA-07</p>
+</div>
+<!-- You Have (They Need) -->
+<div class="bg-surface-container rounded-lg p-stack-sm border border-outline-variant/30 text-right">
+<p class="font-label-caps text-[9px] text-on-surface-variant uppercase mb-unit">You Give</p>
+<p class="font-headline-md text-body-md text-secondary truncate">Christian Pulisic</p>
+<p class="font-label-caps text-[10px] text-on-secondary-fixed-variant">#USA-10</p>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full mt-stack-md py-stack-sm bg-on-background text-inverse-on-surface font-headline-md text-body-md rounded-lg hover:bg-white transition-colors">
+                    Trade Now
+                </button>
+</div>
+<!-- Match Item 2 -->
+<div class="glass-card rounded-xl p-stack-md relative overflow-hidden active:scale-[0.98] transition-transform cursor-pointer">
+<div class="flex items-start justify-between mb-stack-md">
+<div class="flex items-center gap-stack-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-outline-variant shadow-lg">
+<img class="w-full h-full object-cover" data-alt="A portrait of a determined young woman with athletic gear, her hair tied back, posing in front of a blurred soccer pitch at night. Vivid stadium floodlights create a glowing bokeh effect in the background. The visual style is sharp and high-contrast, with saturated colors that emphasize a professional and competitive football collector persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3o6dKABFiiRLKjuzwlTRjqrGrEELtnugvp0KO4J8aNGSEcUIg6yIHfjGrZK1-qpPnQxJjch5RxANeoWQyt7x_Sa1zUiafIfQ1bv6UAFTzAqnY8C9Csll6PzB-IEX9VcQuE0nuMKmuOOPnaujJGh_5CitSpKqsQ28QSZvcwW2Xbl3zllqyDgQvLmBLGFlCh7k1ezz5mdMms2XyPSA1WrVUi1ZzaEQDx7sJwUd2g_CahtQ3rzMhwd9icOiqE7SPFwHl4vLq7_ISFXY"/>
+</div>
+<div>
+<p class="font-headline-md text-body-lg text-on-surface leading-tight">Sarah_88</p>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase">3 km Away</p>
+</div>
+</div>
+<div class="bg-tertiary text-on-tertiary px-stack-sm py-unit rounded font-label-caps text-[10px]">
+                        MATCH
+                    </div>
+</div>
+<div class="grid grid-cols-2 gap-stack-sm relative">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="bg-surface-container-highest p-1 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-sm">sync</span>
+</div>
+</div>
+<div class="bg-surface-container rounded-lg p-stack-sm border border-outline-variant/30">
+<p class="font-label-caps text-[9px] text-on-surface-variant uppercase mb-unit">They Give</p>
+<p class="font-headline-md text-body-md text-primary truncate">Lionel Messi</p>
+<p class="font-label-caps text-[10px] text-on-tertiary-fixed-variant">#ARG-10</p>
+</div>
+<div class="bg-surface-container rounded-lg p-stack-sm border border-outline-variant/30 text-right">
+<p class="font-label-caps text-[9px] text-on-surface-variant uppercase mb-unit">You Give</p>
+<p class="font-headline-md text-body-md text-secondary truncate">Harry Kane</p>
+<p class="font-label-caps text-[10px] text-on-secondary-fixed-variant">#ENG-09</p>
+</div>
+</div>
+</div>
+<!-- Match Item 3 -->
+<div class="glass-card rounded-xl p-stack-md relative overflow-hidden active:scale-[0.98] transition-transform cursor-pointer">
+<div class="flex items-start justify-between mb-stack-md">
+<div class="flex items-center gap-stack-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-outline-variant shadow-lg">
+<img class="w-full h-full object-cover" data-alt="A portrait of a man in his late 20s wearing a vintage football jersey, smiling confidently. The lighting is cinematic, utilizing dark tones and sharp neon green accents to match the brand's secondary color. The background is a stylized, dark digital grid, evoking a futuristic and high-tech sports trading environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_HII_HKE5Uz6Bzza5Vb9Wm6ElGd1ISckKLctsZ-3zwq3CTXMPmaVGCmXDQndEknMGbcpJSXdyD_k-ea_54Ctlxr6AXaFJgzcoKdC12Wn_Hw_wptze3zmo8IQN1yH8R_0yf9qlikD8sNXd3Fpk1JQnvPwK-AWKzGgKfQ_7N-7JIyp4_vUW7DEaIfdPb3OSGf-GowCYsGV12igQt0wjD-vSIkwTIu1aK0Zx0Gr7RoljxgAoSFj2xGsmciKPVVyyZPvZMvp4sIEFgfc"/>
+</div>
+<div>
+<p class="font-headline-md text-body-lg text-on-surface leading-tight">Marco Polo</p>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase">Last seen 5m ago</p>
+</div>
+</div>
+<div class="bg-tertiary text-on-tertiary px-stack-sm py-unit rounded font-label-caps text-[10px]">
+                        MATCH
+                    </div>
+</div>
+<div class="grid grid-cols-2 gap-stack-sm relative">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="bg-surface-container-highest p-1 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-sm">sync</span>
+</div>
+</div>
+<div class="bg-surface-container rounded-lg p-stack-sm border border-outline-variant/30">
+<p class="font-label-caps text-[9px] text-on-surface-variant uppercase mb-unit">They Give</p>
+<p class="font-headline-md text-body-md text-primary truncate">Luka Modrić</p>
+<p class="font-label-caps text-[10px] text-on-tertiary-fixed-variant">#CRO-10</p>
+</div>
+<div class="bg-surface-container rounded-lg p-stack-sm border border-outline-variant/30 text-right">
+<p class="font-label-caps text-[9px] text-on-surface-variant uppercase mb-unit">You Give</p>
+<p class="font-headline-md text-body-md text-secondary truncate">Neymar Jr</p>
+<p class="font-label-caps text-[10px] text-on-secondary-fixed-variant">#BRA-10</p>
+</div>
+</div>
+</div>
+<!-- Empty State / Footer Hint -->
+<div class="text-center py-stack-lg border-2 border-dashed border-outline-variant/20 rounded-xl">
+<span class="material-symbols-outlined text-on-surface-variant text-4xl mb-stack-sm">search</span>
+<p class="font-headline-md text-body-md text-on-surface-variant">Looking for more matches...</p>
+<p class="font-body-md text-[12px] text-outline px-margin-mobile">Keep swiping in the deck to find new trading partners in your area.</p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-gutter py-stack-sm bg-surface-container-low shadow-lg rounded-t-xl z-50">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-3 hover:bg-surface-container-high rounded-full transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">style</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-3 hover:bg-surface-container-high rounded-full transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">local_fire_department</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-container text-on-primary-container dark:text-on-primary-container rounded-full p-3 transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-3 hover:bg-surface-container-high rounded-full transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">person</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // Future expansion: Navigate to chat
+                console.log('Open Trade Chat');
+            });
+        });
+
+        // Add periodic pulsing to the trade indicator icons
+        setInterval(() => {
+            const icons = document.querySelectorAll('.material-symbols-outlined.text-primary.text-sm');
+            icons.forEach(icon => {
+                icon.classList.add('scale-110');
+                setTimeout(() => icon.classList.remove('scale-110'), 300);
+            });
+        }, 3000);
+    </script>
+</body></html>

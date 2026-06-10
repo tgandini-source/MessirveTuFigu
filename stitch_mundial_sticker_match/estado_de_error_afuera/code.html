@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pitch Side Trading - Error de Intercambio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400&amp;family=JetBrains+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#95d4b3",
+                    "primary-fixed-dim": "#ffb3b1",
+                    "surface-container-highest": "#353534",
+                    "on-tertiary-container": "#00311f",
+                    "error": "#ffb4ab",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary": "#b0c7f1",
+                    "on-primary-container": "#5b000e",
+                    "outline": "#ab8987",
+                    "error-container": "#93000a",
+                    "secondary-fixed": "#d5e3ff",
+                    "on-surface-variant": "#e4bebc",
+                    "primary": "#ffb3b1",
+                    "on-primary": "#680011",
+                    "inverse-on-surface": "#313030",
+                    "on-secondary-fixed": "#001b3c",
+                    "surface": "#131313",
+                    "background": "#131313",
+                    "on-tertiary-fixed": "#002114",
+                    "surface-variant": "#353534",
+                    "on-secondary-container": "#a2b9e2",
+                    "on-surface": "#e5e2e1",
+                    "inverse-primary": "#bb152c",
+                    "on-error": "#690005",
+                    "primary-container": "#ff535b",
+                    "surface-container-low": "#1c1b1b",
+                    "on-tertiary": "#003824",
+                    "on-background": "#e5e2e1",
+                    "tertiary-container": "#609d7f",
+                    "surface-container": "#201f1f",
+                    "secondary-container": "#334a6d",
+                    "on-secondary": "#183153",
+                    "on-error-container": "#ffdad6",
+                    "primary-fixed": "#ffdad8",
+                    "on-primary-fixed": "#410007",
+                    "surface-bright": "#393939",
+                    "on-secondary-fixed-variant": "#30476a",
+                    "on-tertiary-fixed-variant": "#0e5138",
+                    "tertiary-fixed": "#b1f0ce",
+                    "surface-container-lowest": "#0e0e0e",
+                    "outline-variant": "#5b403f",
+                    "surface-tint": "#ffb3b1",
+                    "surface-dim": "#131313",
+                    "secondary-fixed-dim": "#b0c7f1",
+                    "inverse-surface": "#e5e2e1",
+                    "on-primary-fixed-variant": "#92001c",
+                    "tertiary": "#95d4b3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "margin-desktop": "40px"
+            },
+            "fontFamily": {
+                    "stat-number": ["Montserrat"],
+                    "body-lg": ["Inter"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "headline-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "stat-number": ["20px", {"lineHeight": "24px", "fontWeight": "900"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "800"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .error-glow {
+            box-shadow: 0 0 20px 2px rgba(255, 83, 91, 0.3);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255, 83, 91, 0.5);
+        }
+        .vignette-overlay {
+            background: radial-gradient(circle, transparent 20%, rgba(18, 18, 18, 0.8) 100%);
+        }
+        @keyframes subtle-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+        .animate-error {
+            animation: subtle-shake 0.2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md overflow-hidden">
+<!-- Top AppBar (from JSON - Shell suppressed on error pages, but rendering brand anchor) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<h1 class="font-headline-md text-headline-md font-black text-on-surface">Pitch Side Trading</h1>
+</div>
+<button class="hover:bg-surface-container-high transition-colors active:scale-95 transition-transform p-2 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="tune">tune</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center p-gutter relative mt-16 pb-24">
+<!-- Cinematic Background & Error Visual -->
+<div class="absolute inset-0 w-full h-full overflow-hidden -z-10">
+<img alt="A dramatic cinematic shot of a football flying over the crossbar against a dark starry sky in a stadium." class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5j8yCeji0DTXabeMOM9gZf0gLsbI0_rt2g9wJyBPRAaKQkXh2JtSAT-Vbgz9p4Jtfh_OUi_e__woL3tMkpXesGV-E_lHd5uYyFIA_02n3A-kRRnE61vRe5PD3R0ZB8fjawTFNsVfjPByWosbN5eiNHJSp8ZccLZcVAzTI61A5dXjZx_X0zEaSpBtowCKzUntu_IB3KAr3gMvcz3RESMtUhQa3SfO6Kplei9_dp-5W1NJNmpBEpWFzzDruJKYmStvP1kmHnzpcwLc"/>
+<div class="absolute inset-0 vignette-overlay"></div>
+</div>
+<!-- Error Card / Transactional Result -->
+<div class="w-full max-w-md bg-surface-container-low/90 backdrop-blur-md rounded-xl p-stack-lg border border-primary-container/20 flex flex-col items-center gap-stack-lg error-glow">
+<!-- Status Badge (from Guidance) -->
+<div class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-4 py-1 rounded-full uppercase tracking-widest animate-pulse">
+                Missing
+            </div>
+<div class="text-center space-y-stack-md">
+<h2 class="font-display-lg text-display-lg text-primary-container uppercase text-glow leading-tight tracking-tighter">
+                    ¡PENAL ERRADO!
+                </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    Parece que el otro coleccionista ya no tiene la figurita o la conexión falló.
+                </p>
+</div>
+<!-- Trade Visualization (Miniature Context) -->
+<div class="flex items-center justify-center gap-gutter w-full py-stack-md">
+<div class="w-20 h-28 bg-surface-container-high rounded-lg border border-outline-variant/30 flex flex-col items-center justify-center opacity-40 grayscale">
+<span class="material-symbols-outlined text-outline text-4xl" data-icon="style">style</span>
+</div>
+<div class="flex flex-col items-center gap-unit">
+<span class="material-symbols-outlined text-primary-container text-4xl animate-error" data-icon="close">close</span>
+<div class="h-0.5 w-16 bg-error-container"></div>
+</div>
+<div class="w-20 h-28 bg-surface-container-high rounded-lg border border-outline-variant/30 flex flex-col items-center justify-center opacity-40 grayscale">
+<span class="material-symbols-outlined text-outline text-4xl" data-icon="person">person</span>
+</div>
+</div>
+<!-- Action Area -->
+<div class="w-full flex flex-col gap-stack-md">
+<button class="w-full py-4 bg-on-surface text-surface font-headline-md text-headline-md rounded-lg active:scale-95 transition-transform hover:shadow-xl hover:bg-white flex items-center justify-center gap-stack-sm" onclick="window.location.reload()">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+                    Intentar de nuevo
+                </button>
+<button class="w-full py-3 bg-transparent border-2 border-on-surface/20 text-on-surface font-label-caps text-label-caps rounded-lg hover:bg-surface-variant transition-colors flex items-center justify-center gap-stack-sm">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+                    VOLVER AL MERCADO
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (from JSON - Filtering Rule: Suppressed for Transactional/Error Screens but maintaining platform structure) -->
+<!-- Note: Following the "Suppression" rule for task-focused screens, but since it's a global shell requirement, we keep it visually subtle or fixed if user needs to escape -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-gutter py-stack-sm bg-surface-container-low shadow-lg rounded-t-xl z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:bg-surface-container-high rounded-full transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="style">style</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:bg-surface-container-high rounded-full transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="local_fire_department">local_fire_department</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:bg-surface-container-high rounded-full transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full p-3 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for the error card
+        document.addEventListener('DOMContentLoaded', () => {
+            const card = document.querySelector('.error-glow');
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>

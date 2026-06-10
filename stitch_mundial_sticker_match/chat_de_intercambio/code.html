@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pitch Side Trading - Chat with Mateo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400;700&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Montserrat:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid #2C2C2C;
+        }
+        .sticker-glow-missing {
+            box-shadow: 0 0 15px rgba(255, 83, 91, 0.3);
+        }
+        .sticker-glow-duplicate {
+            box-shadow: 0 0 15px rgba(149, 212, 179, 0.3);
+        }
+        /* Custom scrollbar for chat area */
+        .chat-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #353534;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#92001c",
+                    "inverse-surface": "#e5e2e1",
+                    "surface": "#131313",
+                    "on-primary-container": "#5b000e",
+                    "on-tertiary": "#003824",
+                    "surface-tint": "#ffb3b1",
+                    "on-secondary-container": "#a2b9e2",
+                    "secondary-container": "#334a6d",
+                    "on-surface": "#e5e2e1",
+                    "error": "#ffb4ab",
+                    "on-error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#0e5138",
+                    "surface-container-highest": "#353534",
+                    "secondary-fixed": "#d5e3ff",
+                    "on-tertiary-fixed": "#002114",
+                    "surface-dim": "#131313",
+                    "surface-variant": "#353534",
+                    "error-container": "#93000a",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-container-low": "#1c1b1b",
+                    "outline": "#ab8987",
+                    "primary-fixed": "#ffdad8",
+                    "inverse-on-surface": "#313030",
+                    "on-secondary": "#183153",
+                    "surface-container": "#201f1f",
+                    "on-surface-variant": "#e4bebc",
+                    "tertiary-fixed-dim": "#95d4b3",
+                    "on-error": "#690005",
+                    "surface-container-high": "#2a2a2a",
+                    "on-secondary-fixed": "#001b3c",
+                    "on-tertiary-container": "#00311f",
+                    "secondary-fixed-dim": "#b0c7f1",
+                    "on-primary-fixed": "#410007",
+                    "surface-bright": "#393939",
+                    "primary": "#ffb3b1",
+                    "primary-container": "#ff535b",
+                    "primary-fixed-dim": "#ffb3b1",
+                    "tertiary-fixed": "#b1f0ce",
+                    "on-background": "#e5e2e1",
+                    "inverse-primary": "#bb152c",
+                    "secondary": "#b0c7f1",
+                    "tertiary-container": "#609d7f",
+                    "on-primary": "#680011",
+                    "on-secondary-fixed-variant": "#30476a",
+                    "outline-variant": "#5b403f",
+                    "background": "#131313",
+                    "tertiary": "#95d4b3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px",
+                    "gutter": "16px",
+                    "margin-desktop": "40px",
+                    "unit": "4px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-md": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "stat-number": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "800"}],
+                    "stat-number": ["20px", {"lineHeight": "24px", "fontWeight": "900"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container overflow-hidden h-screen flex flex-col">
+<!-- TopAppBar - Mapped from JSON -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant flex justify-between items-center px-margin-mobile h-16 w-full shadow-none">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform p-2 rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="relative w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img alt="Mateo" class="w-full h-full object-cover" data-alt="A portrait of a charismatic young man with dark hair and a friendly smile, shot in a high-contrast cinematic style with stadium-like overhead lighting. The background is a blurred dark football stadium setting at night. He is wearing a modern sports jacket with subtle red accents, fitting the competitive and high-energy sticker-trading app aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLAYCrJz0N8f3ogOuq5I4Gd3A33BiQ6AX4I6PjBVdyLDBvDh2NZKADyc9i9RTtYtQHQnbdJD1LMHC3xd-CnCa7eMSrfxJXgNNvtlqqkZqEI_jA7b0QeREvxCLTMGrontkoeFhkFS8nN9P9_5_PZEAAoWrjjHb1_xnXz9hunrEIFr2sSELv9jdCC9ofbbfqa3CtAgevXKy1OJzGWgTrelecJMcPJG3xenRp1AqKub6K0a9jxy6gXEAqhKrfHHwzsmjZUatYDtNfHxE"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-tertiary rounded-full border-2 border-surface"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md leading-none text-on-surface">Mateo</span>
+<span class="font-label-caps text-[10px] text-tertiary uppercase tracking-widest">Collector Rank: Pro</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="active:scale-95 transition-transform p-2 rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container-high text-primary">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col pt-16 pb-20 relative overflow-hidden">
+<!-- Pinned Trade Preview -->
+<section class="sticky top-0 z-40 px-margin-mobile py-stack-md glass-panel border-t-0 border-x-0">
+<div class="flex items-center justify-between mb-stack-sm">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">ACTIVE TRADE OFFER</h3>
+<span class="font-label-caps text-label-caps text-tertiary">92% MATCH</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<!-- Mbappe Sticker (Incoming) -->
+<div class="flex-1 relative aspect-[3/4] rounded-lg overflow-hidden border border-outline-variant sticker-glow-missing">
+<img class="w-full h-full object-cover grayscale-[0.2]" data-alt="A high-octane sports sticker of a world-famous French striker in a dynamic action pose, surrounded by explosive digital sparks and a sleek holographic border. The background is a deep navy with glowing red light streaks. A large number 10 is visible in the corner, conveying rarity and elite performance in a modern trading card style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATHKCb3ChlwBz4losBrB5MCe-OpBsD-H-9HQh5c9S9CjMZsTeaP0iHOr0x5o_2hZ2_WZEoMPhY3cyd8TkeFMxn9NCYtXjO8des3d2pH-gFfpsqoDhEnHmukow7WmOm4EINVOGOjAZ8ZN_Mdz9xgIuIxJt2EgfQ_cHJp0rGLErqPtDU38hY1-WmJImJAM0IuHBDKG2nkblWlN_F0J4p_BjKsCGJX0NpruAJe9KPY_ebARN8jcVX3Yeftwz3rpjOOXlvpPb_RwTVtUM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-80"></div>
+<div class="absolute top-2 left-2 px-2 py-0.5 bg-primary-container text-white font-label-caps text-[10px] rounded">MISSING</div>
+<div class="absolute bottom-2 left-2 flex flex-col">
+<span class="text-white font-headline-md text-sm leading-none">Mbappé</span>
+<span class="text-on-surface-variant font-label-caps text-[8px]">FRA • #742</span>
+</div>
+</div>
+<div class="flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">sync</span>
+</div>
+<!-- Pulisic Sticker (Outgoing) -->
+<div class="flex-1 relative aspect-[3/4] rounded-lg overflow-hidden border border-outline-variant sticker-glow-duplicate opacity-80">
+<img class="w-full h-full object-cover" data-alt="A professional football player sticker featuring an American winger in mid-stride. The design uses high-contrast shadows and sharp geometric overlays. In the top corner, a vibrant USA flag icon is placed. The overall aesthetic is dark, moody, and premium, suggesting a rare collectible card in a high-stakes digital environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-F3VqKYNYnz3Vc1Ba72zX4GjEnoJteKZVyEZAoa00MwXoC8oFCArXhdSJkc1jRKLQ-BiaDno6hp5Gl1sgyjea412e6d7KHDL0gYyquzMDf2ofMCFZHeSTiwTHqSIpHrm1kuOCDSG18xdXXP3IitbA_wKtP60E3IRfhTcj1nFAVhhN3x2WYBVZEqZQpcUGmLNr3EVoh9m4XCOTIX4cl3ShNdCwE6IDDR6A_CsR0UmjCLX5_pnIXerZBQNUKSJJ_BH8H06mJII2jA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-80"></div>
+<div class="absolute top-2 left-2 px-2 py-0.5 bg-tertiary text-on-tertiary font-label-caps text-[10px] rounded">DUPLICATE</div>
+<div class="absolute bottom-2 left-2 flex flex-col">
+<span class="text-white font-headline-md text-sm leading-none">Pulisic</span>
+<span class="text-on-surface-variant font-label-caps text-[8px]">USA • #129</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-stack-md bg-white text-surface py-2 rounded-lg font-headline-md text-sm active:scale-95 transition-transform">
+                Confirm Proposed Trade
+            </button>
+</section>
+<!-- Message List -->
+<div class="flex-1 overflow-y-auto px-margin-mobile py-stack-lg flex flex-col gap-stack-lg chat-scroll">
+<!-- System Timestamp -->
+<div class="flex justify-center">
+<span class="bg-surface-container-high px-3 py-1 rounded-full font-label-caps text-[10px] text-on-surface-variant">TODAY 14:22</span>
+</div>
+<!-- Mateo's Message -->
+<div class="flex items-end gap-3 max-w-[85%] group">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant flex-shrink-0">
+<img alt="Mateo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD14bUuz8RLvduCbJacvOFyAt7Ojd5HuQGTUqtcsEfDmsOBdUXJvJ8KHRoC541JXWk2709NvjbXWtIOvkrFfJznan77hVqzx8yiG7h4i9mVe13N-jas8SgDH8C_U1auxqa12T-8S3UNHRt50jlgbHg51oChi-6hqD7-bcrRmES7e8UTqUsN0naGVmItdscb2fA6oEJIApHmBcG9deI8Wk0HLFPklitvU23NqavdJTgSnl6sDRKVSmqCuAP8Eya7JhhRdSlg5OAflTw"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="bg-surface-container-high text-on-surface px-4 py-3 rounded-2xl rounded-bl-none border border-outline-variant shadow-sm">
+<p class="font-body-md text-body-md">Hey! I have the Mbappé you're looking for, do you still have Pulisic?</p>
+</div>
+<span class="text-[10px] font-label-caps text-on-surface-variant ml-1">14:23</span>
+</div>
+</div>
+<!-- My Reply (Example) -->
+<div class="flex items-end gap-3 flex-row-reverse max-w-[85%] self-end group">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-md text-xs flex-shrink-0">
+                    ME
+                </div>
+<div class="flex flex-col items-end gap-1">
+<div class="bg-secondary-container text-on-secondary-container px-4 py-3 rounded-2xl rounded-br-none border border-secondary transition-all">
+<p class="font-body-md text-body-md">Yeah, I definitely do. It's a shiny duplicate! Just sent you the trade request.</p>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] font-label-caps text-on-surface-variant mr-1">14:25</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary">done_all</span>
+</div>
+</div>
+</div>
+<!-- Mateo's Latest -->
+<div class="flex items-end gap-3 max-w-[85%] group">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant flex-shrink-0">
+<img alt="Mateo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8yqSQ4w6DZU7rHmVD-eLTE0ucxXQaZfQx8B58CwW1FCNmZOXelE8C-KIQeuOcA0v6BNmmlRgHAF8z4LxfOSoP6G_tkRLJW5TNW0HsZO7sZ-k5lQT2Lj64HDcn6xQ4c8sqS0CRwtnLKlCttnMlZvVXzhiEV0NtjomhAuA2OWJ1wLr2-lCa6vUhe18hhUG8tJANuTLZDlKMzkKxiQxfYRuesk8UIHUshmRhR9IB5NIkrK0wceaBdBZaqlGJeAe1Ne2X_cRGlAlcHbw"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="bg-surface-container-high text-on-surface px-4 py-3 rounded-2xl rounded-bl-none border border-outline-variant">
+<p class="font-body-md text-body-md">Perfect! Checking it now. That completes my USA page! 🔥</p>
+</div>
+<span class="text-[10px] font-label-caps text-on-surface-variant ml-1">JUST NOW</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Chat Input Area -->
+<div class="fixed bottom-0 w-full bg-surface-container-low border-t border-outline-variant p-margin-mobile pb-8 z-50">
+<div class="flex items-center gap-stack-md bg-surface border border-outline-variant rounded-full px-4 py-2 ring-1 ring-inset ring-transparent focus-within:ring-primary transition-all">
+<button class="text-on-surface-variant hover:text-primary active:scale-90 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface font-body-md py-1" placeholder="Type a message..." type="text"/>
+<button class="text-on-surface-variant hover:text-primary active:scale-90 transition-all">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+<button class="bg-primary-container text-on-primary-container w-10 h-10 rounded-full flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+<!-- Hidden Bottom Nav Mockup (suppressed as per Task-Focused rules, but referenced for global state) -->
+<div class="hidden">
+<!-- bottom_nav_active_item: chat -->
+</div>
+<script>
+        // Simple auto-scroll to bottom of chat
+        const chatArea = document.querySelector('.chat-scroll');
+        chatArea.scrollTop = chatArea.scrollHeight;
+
+        // Interaction for the input field
+        const input = document.querySelector('input');
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && this.value.trim() !== "") {
+                const message = this.value;
+                this.value = '';
+                // Add placeholder visual feedback
+                console.log('Sending message:', message);
+            }
+        });
+    </script>
+</body></html>
