@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pitch Side Trading - Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400;700&amp;family=JetBrains+Mono:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Montserrat:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-glow-green {
+            text-shadow: 0 0 15px rgba(149, 212, 179, 0.4);
+        }
+        .text-glow-blue {
+            text-shadow: 0 0 15px rgba(176, 199, 241, 0.4);
+        }
+        .stadium-overlay {
+            background: linear-gradient(180deg, rgba(18, 18, 18, 0.4) 0%, rgba(18, 18, 18, 0.95) 85%);
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        .animate-glow-pulse {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed-variant": "#92001c",
+                      "inverse-surface": "#e5e2e1",
+                      "surface": "#131313",
+                      "on-primary-container": "#5b000e",
+                      "on-tertiary": "#003824",
+                      "surface-tint": "#ffb3b1",
+                      "on-secondary-container": "#a2b9e2",
+                      "secondary-container": "#334a6d",
+                      "on-surface": "#e5e2e1",
+                      "error": "#ffb4ab",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#0e5138",
+                      "surface-container-highest": "#353534",
+                      "secondary-fixed": "#d5e3ff",
+                      "on-tertiary-fixed": "#002114",
+                      "surface-dim": "#131313",
+                      "surface-variant": "#353534",
+                      "error-container": "#93000a",
+                      "surface-container-lowest": "#0e0e0e",
+                      "surface-container-low": "#1c1b1b",
+                      "outline": "#ab8987",
+                      "primary-fixed": "#ffdad8",
+                      "inverse-on-surface": "#313030",
+                      "on-secondary": "#183153",
+                      "surface-container": "#201f1f",
+                      "on-surface-variant": "#e4bebc",
+                      "tertiary-fixed-dim": "#95d4b3",
+                      "on-error": "#690005",
+                      "surface-container-high": "#2a2a2a",
+                      "on-secondary-fixed": "#001b3c",
+                      "on-tertiary-container": "#00311f",
+                      "secondary-fixed-dim": "#b0c7f1",
+                      "on-primary-fixed": "#410007",
+                      "surface-bright": "#393939",
+                      "primary": "#ffb3b1",
+                      "primary-container": "#ff535b",
+                      "primary-fixed-dim": "#ffb3b1",
+                      "tertiary-fixed": "#b1f0ce",
+                      "on-background": "#e5e2e1",
+                      "inverse-primary": "#bb152c",
+                      "secondary": "#b0c7f1",
+                      "tertiary-container": "#609d7f",
+                      "on-primary": "#680011",
+                      "on-secondary-fixed-variant": "#30476a",
+                      "outline-variant": "#5b403f",
+                      "background": "#131313",
+                      "tertiary": "#95d4b3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "stack-sm": "8px",
+                      "gutter": "16px",
+                      "margin-desktop": "40px",
+                      "unit": "4px",
+                      "stack-md": "16px",
+                      "stack-lg": "32px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "label-caps": ["JetBrains Mono"],
+                      "headline-md": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "stat-number": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "800"}],
+                      "stat-number": ["20px", {"lineHeight": "24px", "fontWeight": "900"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden">
+<!-- Hero Background Section -->
+<div class="fixed inset-0 z-0">
+<img class="w-full h-full object-cover object-center scale-105" data-alt="A cinematic, low-angle shot of a massive football stadium at night under bright stadium floodlights. The field is lush green, and the atmosphere is filled with a light mist and a high-energy competitive spirit. The lighting is dramatic, with deep shadows and vibrant glows from the neon signage, fitting a high-contrast modern UI style with deep blacks and intense red and green accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCut_lSeHXj7QM6qem5lK5rim7JIOx_HtJRVC2FiV7_JiHmn7Rinl_HYTHovlqhcDjyjrAOPHH0FaHEy3NK8qnPqlnUyytZz6ukrh6M1gbI9yrE-v6ZpPvkrFdYH12s8i4FghbPA5kOZHnGFIO-BXzBzC4x3GKHQQTPS1UGvkn7Ek0X0gmKTXvUr2Bl96A5ZJ4eRFCVdCWPtbRvL-48lUbDo_SrkHKkRbm8Fz3Y0feTs65G8us9O68j1lseVHSOroQKgqkLGPwWCsk"/>
+<div class="absolute inset-0 stadium-overlay"></div>
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 min-h-screen flex flex-col justify-end px-margin-mobile pb-stack-lg md:px-margin-desktop md:pb-24 max-w-7xl mx-auto">
+<!-- Branding Anchor -->
+<div class="fixed top-0 left-0 w-full p-margin-mobile flex justify-center md:justify-start">
+<h1 class="font-headline-md text-headline-md font-black text-on-surface tracking-tighter uppercase italic">
+                Pitch Side <span class="text-primary-container">Trading</span>
+</h1>
+</div>
+<!-- Onboarding Narrative -->
+<div class="max-w-xl space-y-stack-md mb-stack-lg">
+<div class="flex gap-2 mb-stack-sm">
+<span class="inline-block px-3 py-1 bg-on-tertiary-fixed-variant text-tertiary text-label-caps font-label-caps rounded-full animate-glow-pulse">
+                    MÉXICO 2024
+                </span>
+<span class="inline-block px-3 py-1 bg-secondary-container text-secondary text-label-caps font-label-caps rounded-full">
+                    LIVE TRADES
+                </span>
+</div>
+<h2 class="font-display-lg text-display-lg text-on-surface leading-tight">
+                Completa tu <span class="text-primary-container">Álbum</span>
+</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                Únete a la mayor comunidad de coleccionistas. Encuentra las figuritas que te faltan y cambia tus repetidas en segundos.
+            </p>
+</div>
+<!-- Action Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter w-full">
+<!-- Secondary Action: Exploring -->
+<button class="group relative flex flex-col items-start p-stack-md bg-surface-container/60 backdrop-blur-md border border-outline-variant rounded-xl overflow-hidden transition-all hover:border-tertiary active:scale-95">
+<div class="flex items-center gap-stack-sm mb-stack-sm">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-caps text-label-caps text-tertiary tracking-widest uppercase">Cerca de ti</span>
+</div>
+<span class="font-headline-md text-headline-md text-on-surface group-hover:text-tertiary transition-colors">Explorar figuritas cerca</span>
+<div class="absolute bottom-0 right-0 p-stack-sm opacity-20 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-tertiary">location_on</span>
+</div>
+</button>
+<!-- Primary Action: Uploading -->
+<button class="group relative flex flex-col items-start p-stack-md bg-primary-container text-on-primary-container rounded-xl overflow-hidden shadow-[0_0_30px_rgba(255,83,91,0.3)] transition-all hover:brightness-110 active:scale-95">
+<div class="flex items-center gap-stack-sm mb-stack-sm">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">add_photo_alternate</span>
+<span class="font-label-caps text-label-caps text-on-primary-container tracking-widest uppercase">Escanear pack</span>
+</div>
+<span class="font-headline-md text-headline-md">Subir mis repetidas</span>
+<div class="absolute bottom-0 right-0 p-stack-sm opacity-20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[64px]">style</span>
+</div>
+</button>
+</div>
+<!-- Progress/Status Micro-UI -->
+<div class="mt-stack-lg flex flex-wrap items-center gap-gutter border-t border-outline-variant/30 pt-stack-md">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a diverse football fan smiling, wearing a team jersey, in a vibrant stadium setting with blurred lights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTZWZZF_SXqehsgRmKwGQy4aSeIhAPqCy9WX7xwJLSFfReeYpnFovEP826MWS1Ze08_fZ3HIfaE6uv_yhQUy2m1XFf2nR-PalyeP-Aliw75RuC34Gf4TTZrwD8Z0atsvpsOJXhgrBe1TDvHFgtt4f4sjBf5ryyNVKZTWWWlM13Q_gc6Pfe-wxz48VViZpJ9hFG8ttpw8uFZezzTiZ_ab8juP9C5CeuQiYAeaevMJWAuZTllSRA1VxvIw916oQeTAKX2ZKDO0v8eKs"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young woman with face paint of a national flag, cheering in the stands of a football stadium with a high-energy atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCietFsb_1x12UYrU0zQ2nuao4RjrcC1SjiKBIdMdSJiFaWb8x205DY8HDUdDwG0DgJhAbZi-cXXRliUshExj6dage1mZwceTOrqSoX1epXNC4hfw4hOZ9pPmKuD7GPatVeQYzkZqGjVdTMZMrpNsAeXE5khUMF2jNG-wSx3nPB-aQ845gWSxK3rCdwMJ-sVWL23Ar-cv3bIvARqK-Nsq2mDwMp7WMt6XF2vW4e9D6dJb9vWrGMd7cdasmMb6gai8u9neEyyCD1QBw"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center">
+<span class="font-label-caps text-[10px] text-on-surface-variant">+8k</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+<span class="text-tertiary font-bold">128 traders</span> activos ahora mismo en tu zona.
+            </p>
+</div>
+</main>
+<!-- Background Atmospheric Particles (Vanilla JS) -->
+<canvas class="fixed inset-0 pointer-events-none z-1" id="atmosphere"></canvas>
+<script>
+        const canvas = document.getElementById('atmosphere');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for (let i = 0; i < 50; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedY: Math.random() * 0.5 + 0.1,
+                    opacity: Math.random() * 0.5
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.y -= p.speedY;
+                if (p.y < 0) p.y = canvas.height;
+                ctx.fillStyle = `rgba(255, 179, 177, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        animate();
+    </script>
+</body></html>
