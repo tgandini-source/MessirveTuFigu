@@ -282,6 +282,7 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.99 }],
   },
   heroImage: {
+    position: 'absolute',
     width: '100%',
     height: '100%',
   },
