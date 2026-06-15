@@ -76,7 +76,7 @@ export default function OnboardingScreen() {
             <Pressable
               onPress={() => router.push('/home' as never)}
               style={({ pressed }) => [styles.textLink, pressed && styles.pressed]}>
-              <Text style={styles.textLinkLabel}>Saltar al dashboard</Text>
+              <Text style={styles.textLinkLabel}>Ver dashboard</Text>
             </Pressable>
           </View>
         </ScrollView>
