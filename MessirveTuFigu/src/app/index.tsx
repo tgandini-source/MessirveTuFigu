@@ -17,18 +17,16 @@ export default function OnboardingScreen() {
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.brandRow}>
-            <Text style={styles.brand}>Pitch Side</Text>
-            <Text style={styles.brandAccent}>Trading</Text>
+            <Text style={styles.brand}>MUNDIAL DE FUTBOL FIFA 2026</Text>
           </View>
 
           <View style={styles.pillRow}>
-            <PitchPill tone="mint">MÉXICO 2024</PitchPill>
-            <PitchPill tone="blue">LIVE TRADES</PitchPill>
+            <PitchPill tone="mint">USA, MEXICO Y CANADA</PitchPill>
+            <PitchPill tone="blue">INTERCAMBIOS EN VIVO</PitchPill>
           </View>
 
           <View style={styles.heroCopy}>
-            <Text style={styles.display}>Completa tu</Text>
-            <Text style={styles.displayAccent}>Álbum</Text>
+            <Text style={styles.display}>Completa tu <Text style={styles.displayAccent}>Álbum</Text></Text>
             <Text style={styles.body}>
               Únete a la mayor comunidad de coleccionistas. Encuentra las figuritas que te faltan y
               cambia tus repetidas en segundos.
@@ -64,7 +62,7 @@ export default function OnboardingScreen() {
               </View>
             </View>
             <Text style={styles.statusText}>
-              <Text style={styles.statusStrong}>128 traders</Text> activos ahora mismo en tu zona.
+              <Text style={styles.statusStrong}>128 usuarios</Text> activos ahora mismo en tu zona.
             </Text>
           </View>
 
@@ -78,7 +76,7 @@ export default function OnboardingScreen() {
             <Pressable
               onPress={() => router.push('/home' as never)}
               style={({ pressed }) => [styles.textLink, pressed && styles.pressed]}>
-              <Text style={styles.textLinkLabel}>Saltar al dashboard</Text>
+              <Text style={styles.textLinkLabel}>Ver dashboard</Text>
             </Pressable>
           </View>
         </ScrollView>
@@ -91,6 +89,9 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: '#131313',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   safeArea: {
     flex: 1,
@@ -118,15 +119,15 @@ const styles = StyleSheet.create({
   },
   brand: {
     color: '#e5e2e1',
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: '900',
     fontStyle: 'italic',
     textTransform: 'uppercase',
-    letterSpacing: -1.2,
+    margin: 20,
   },
   brandAccent: {
     color: '#ff535b',
-    fontSize: 28,
+    fontSize: 20,
     fontWeight: '900',
     fontStyle: 'italic',
     textTransform: 'uppercase',
@@ -135,28 +136,29 @@ const styles = StyleSheet.create({
   pillRow: {
     flexDirection: 'row',
     gap: 10,
+    marginBottom: 10,
   },
   heroCopy: {
     gap: 10,
   },
   display: {
     color: '#e5e2e1',
-    fontSize: 54,
+    fontSize: 40,
     fontWeight: '900',
-    lineHeight: 58,
+    lineHeight: 50,
     letterSpacing: -2,
   },
   displayAccent: {
     color: '#ff535b',
-    fontSize: 54,
+    fontSize: 40,
     fontWeight: '900',
-    lineHeight: 58,
+    lineHeight: 50,
     letterSpacing: -2,
   },
   body: {
     color: '#f0c2bf',
-    fontSize: 18,
-    lineHeight: 28,
+    fontSize: 16,
+    lineHeight: 24,
     maxWidth: 620,
   },
   actionGrid: {
