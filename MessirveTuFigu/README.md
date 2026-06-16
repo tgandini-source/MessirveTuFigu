@@ -1,56 +1,100 @@
-# Welcome to your Expo app 👋
+# MessirveTuFigu
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Descripción del problema
 
-## Get started
+MessirveTuFigu es una aplicación móvil de experiencia Expo/React Native que busca resolver la falta de un espacio ágil para que coleccionistas de figuritas de fútbol puedan encontrar sus cartas faltantes y cambiar sus repetidas. El objetivo es simular un entorno de intercambio cercano con sugerencias de coincidencias, perfiles de coleccionistas y un feed de stickers estilo "Pitch Side Trading".
 
-1. Install dependencies
+## Alcance implementado
+
+- Interfaz principal con acceso a funciones de exploración y subida de repetidas.
+- Feed de sugerencias de intercambio generado desde metadatos de equipos de fútbol.
+- Estado de "vacío" para simular pantalla sin coleccionistas disponibles.
+- Soporte para dato enriquecido de equipos desde la API de `football-data.org` con fallback local cuando no hay API key o falla la petición.
+- Páginas de detalle, deck, chat y carga/éxito basadas en el flujo de la aplicación.
+- Estilos y navegación con `expo-router` y componentes personalizados.
+
+## Stack tecnológico
+
+- Expo SDK 56
+- React 19
+- React Native 0.85
+- TypeScript
+- Expo Router
+- `expo-image`, `expo-constants`, `expo-linking`, `expo-web-browser`, `expo-status-bar`
+
+## Pasos de ejecución
+
+1. Instalar dependencias:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. Iniciar la app:
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. Abrir la app en Android, iOS o web desde el panel de Expo.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+4. Para correr en plataformas específicas:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   ```bash
+   npm run android
+   npm run ios
+   npm run web
+   ```
 
-## Get a fresh project
+## API utilizada
 
-When you're ready, run:
+- `football-data.org` v4
+- Endpoint principal: `GET https://api.football-data.org/v4/competitions/{competitionCode}/teams`
+- Autenticación: header `X-Auth-Token`
+- Configuración por defecto en `app.config.ts`:
+  - `footballDataBaseUrl`: `https://api.football-data.org/v4`
+  - `footballDataCompetition`: `WC`
+
+### Uso de la API en el proyecto
+
+El archivo `src/config/football-data.ts` obtiene la API key y las variables de entorno desde:
+
+- `EXPO_PUBLIC_FOOTBALL_DATA_API_KEY`
+- `EXPO_PUBLIC_FOOTBALL_DATA_BASE_URL`
+- `EXPO_PUBLIC_FOOTBALL_DATA_COMPETITION`
+
+Si no se encuentra la API key, la aplicación utiliza un conjunto de equipos de respaldo y continúa con una experiencia local.
+
+## Configuración de entorno recomendada
+
+Agregar en el entorno de desarrollo:
 
 ```bash
-npm run reset-project
+EXPO_PUBLIC_FOOTBALL_DATA_API_KEY=tu_api_key_aqui
+EXPO_PUBLIC_FOOTBALL_DATA_BASE_URL=https://api.football-data.org/v4
+EXPO_PUBLIC_FOOTBALL_DATA_COMPETITION=WC
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+O configurarlo en `app.config.ts` mediante `extra`.
 
-### Other setup steps
+## Integrantes
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+- Información del equipo no está especificada en el repositorio.
+- Actualizar esta sección con los nombres reales del equipo según corresponda.
 
-## Learn more
+## Limitaciones conocidas
 
-To learn more about developing your project with Expo, look at the following resources:
+- No hay backend propio: la lógica de intercambio es simulada y basada en datos locales.
+- No existe persistencia de usuarios ni autenticación real.
+- El flujo de "subir repetidas" y "buscar coincidencias" están representados como experiencia de interfaz más que como intercambio real.
+- El uso de la API de `football-data.org` depende de una API key válida; sin ella, se usan datos de respaldo estáticos.
+- No hay pruebas automatizadas incluidas en el proyecto actual.
+- No hay manejo avanzado de errores de red ni reconexión para peticiones a la API.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Estructura básica del proyecto
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- `app/`: rutas y pantallas de la aplicación.
+- `src/config/football-data.ts`: configuración y consumo de `football-data.org`.
+- `src/data/pitch-side.ts`: generación del feed de intercambio y datos de respaldo.
+- `app.config.ts`: variables `extra` y configuración de Expo.
+- `package.json`: dependencias y scripts de ejecución.
