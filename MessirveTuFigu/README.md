@@ -79,7 +79,7 @@ O configurarlo en `app.config.ts` mediante `extra`.
 
 ## Integrantes
 
-- Alumnos de la catedra DISEÑO DE SOFTWARE EN DISPOSITIVOS MOVILES de la Tecnicatura Universitaria en Diseño de Software
+Alumnos de la catedra DISEÑO DE SOFTWARE EN DISPOSITIVOS MOVILES de la Tecnicatura Universitaria en Diseño de Software
 
 - Yonatan Ahumada, MU N°: 220
 - Tiago Gandini, MU N°: 191
