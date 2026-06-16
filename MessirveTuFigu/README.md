@@ -9,7 +9,7 @@ MessirveTuFigu es una aplicación móvil de experiencia Expo/React Native que bu
 - Interfaz principal con acceso a funciones de exploración y subida de repetidas.
 - Feed de sugerencias de intercambio generado desde metadatos de equipos de fútbol.
 - Estado de "vacío" para simular pantalla sin coleccionistas disponibles.
-- Soporte para dato enriquecido de equipos desde la API de `football-data.org` con fallback local cuando no hay API key o falla la petición.
+- Soporte para datos enriquecidos de equipos desde la API de `football-data.org` con fallback local cuando no hay API key o falla la petición.
 - Páginas de detalle, deck, chat y carga/éxito basadas en el flujo de la aplicación.
 - Estilos y navegación con `expo-router` y componentes personalizados.
 
@@ -79,8 +79,12 @@ O configurarlo en `app.config.ts` mediante `extra`.
 
 ## Integrantes
 
-- Información del equipo no está especificada en el repositorio.
-- Actualizar esta sección con los nombres reales del equipo según corresponda.
+- Alumnos de la catedra DISEÑO DE SOFTWARE EN DISPOSITIVOS MOVILES de la Tecnicatura Universitaria en Diseño de Software
+
+- Yonatan Ahumada, MU N°: 220
+- Tiago Gandini, MU N°: 191
+- Cristian Godoy, MU N°: 286
+- Mario Carreño, MU N°: 129
 
 ## Limitaciones conocidas
 
