@@ -1,6 +1,6 @@
 import type { ImageSourcePropType } from 'react-native';
-import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Pressable, FlatList } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Pressable, FlatList, ActivityIndicator, Platform, Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,7 +15,9 @@ export type AlbumPlayer = {
   name: string;
   status: StickerStatus;
   repeatedCount?: number;
-  apiPlayerId?: string;
+  position?: string;     
+  shirtNumber?: string | number; 
+  age?: number;          
 };
 
 export type TeamCode = 'ARG' | 'ESP' | 'FRA' | 'BRA';
@@ -24,201 +26,245 @@ export type AlbumTeam = {
   code: TeamCode;
   flag: string;
   label: string;
-  players: AlbumPlayer[];
+  apiId: number;
 };
 
-export const pitchSideAssets = {
-  hero: { uri: 'https://images.unsplash.com/photo-1486286701208-1d58e9338013?w=1200&q=60' } as ImageSourcePropType,
-};
-
-// Todos los jugadores inicializados en 'missing' por defecto
-export const albumTeams: AlbumTeam[] = [
-  {
-    code: 'ARG',
-    flag: '🇦🇷',
-    label: 'ARG',
-    players: [
-      { number: 1, name: 'E. Martínez', status: 'missing' },
-      { number: 2, name: 'N. Molina', status: 'missing' },
-      { number: 3, name: 'C. Romero', status: 'missing' },
-      { number: 4, name: 'G. Montiel', status: 'missing' },
-      { number: 5, name: 'N. Otamendi', status: 'missing' },
-      { number: 6, name: 'L. Martínez', status: 'missing' },
-      { number: 7, name: 'R. De Paul', status: 'missing' },
-      { number: 8, name: 'E. Fernández', status: 'missing' },
-      { number: 9, name: 'J. Álvarez', status: 'missing' },
-      { number: 10, name: 'L. Messi', status: 'missing' },
-      { number: 11, name: 'A. Di María', status: 'missing' },
-      { number: 12, name: 'L. Paredes', status: 'missing' },
-      { number: 13, name: 'T. Almada', status: 'missing' },
-      { number: 14, name: 'G. Lo Celso', status: 'missing' },
-      { number: 15, name: 'A. Mac Allister', status: 'missing' },
-      { number: 16, name: 'F. Rulli', status: 'missing' },
-      { number: 17, name: 'L. Acuña', status: 'missing' },
-      { number: 18, name: 'M. Palacios', status: 'missing' },
-    ],
-  },
-  {
-    code: 'ESP',
-    flag: '🇪🇸',
-    label: 'ESP',
-    players: [
-      { number: 1, name: 'Unai Simón', status: 'missing' },
-      { number: 2, name: 'D. Carvajal', status: 'missing' },
-      { number: 3, name: 'R. Le Normand', status: 'missing' },
-      { number: 4, name: 'Pau Cubarsí', status: 'missing' },
-      { number: 5, name: 'A. Laporte', status: 'missing' },
-      { number: 6, name: 'M. Merino', status: 'missing' },
-      { number: 7, name: 'Á. Morata', status: 'missing' },
-      { number: 8, name: 'Fabián Ruiz', status: 'missing' },
-      { number: 9, name: 'Joselu', status: 'missing' },
-      { number: 10, name: 'Pedri', status: 'missing' },
-      { number: 11, name: 'Ferran Torres', status: 'missing' },
-      { number: 12, name: 'M. Oyarzabal', status: 'missing' },
-      { number: 13, name: 'M. Cucurella', status: 'missing' },
-      { number: 14, name: 'Rodri', status: 'missing' },
-      { number: 15, name: 'Dani Olmo', status: 'missing' },
-      { number: 16, name: 'Nico Williams', status: 'missing' },
-      { number: 17, name: 'Lamine Yamal', status: 'missing' },
-      { number: 18, name: 'Jesús Navas', status: 'missing' },
-    ],
-  },
-  {
-    code: 'FRA',
-    flag: '🇫🇷',
-    label: 'FRA',
-    players: [
-      { number: 1, name: 'M. Maignan', status: 'missing' },
-      { number: 2, name: 'J. Koundé', status: 'missing' },
-      { number: 3, name: 'D. Upamecano', status: 'missing' },
-      { number: 4, name: 'I. Konaté', status: 'missing' },
-      { number: 5, name: 'T. Hernández', status: 'missing' },
-      { number: 6, name: 'A. Tchouaméni', status: 'missing' },
-      { number: 7, name: 'A. Griezmann', status: 'missing' },
-      { number: 8, name: 'A. Rabiot', status: 'missing' },
-      { number: 9, name: 'O. Giroud', status: 'missing' },
-      { number: 10, name: 'K. Mbappé', status: 'missing' },
-      { number: 11, name: 'O. Dembélé', status: 'missing' },
-      { number: 12, name: 'M. Thuram', status: 'missing' },
-      { number: 13, name: 'E. Camavinga', status: 'missing' },
-      { number: 14, name: 'K. Coman', status: 'missing' },
-      { number: 15, name: 'R. Kolo Muani', status: 'missing' },
-      { number: 16, name: 'B. Barcola', status: 'missing' },
-      { number: 17, name: 'L. Hernández', status: 'missing' },
-      { number: 18, name: 'W. Saliba', status: 'missing' },
-    ],
-  },
-  {
-    code: 'BRA',
-    flag: '🇧🇷',
-    label: 'BRA',
-    players: [
-      { number: 1, name: 'Alisson', status: 'missing' },
-      { number: 2, name: 'Danilo', status: 'missing' },
-      { number: 3, name: 'Marquinhos', status: 'missing' },
-      { number: 4, name: 'É. Militão', status: 'missing' },
-      { number: 5, name: 'Casemiro', status: 'missing' },
-      { number: 6, name: 'Alex Sandro', status: 'missing' },
-      { number: 7, name: 'Raphinha', status: 'missing' },
-      { number: 8, name: 'B. Guimarães', status: 'missing' },
-      { number: 9, name: 'G. Jesus', status: 'missing' },
-      { number: 10, name: 'Neymar', status: 'missing' },
-      { number: 11, name: 'Rodrygo', status: 'missing' },
-      { number: 12, name: 'Endrick', status: 'missing' },
-      { number: 13, name: 'G. Magalhães', status: 'missing' },
-      { number: 14, name: 'L. Paquetá', status: 'missing' },
-      { number: 15, name: 'Wendell', status: 'missing' },
-      { number: 16, name: 'Martinelli', status: 'missing' },
-      { number: 17, name: 'Vinícius Jr.', status: 'missing' },
-      { number: 18, name: 'Richarlison', status: 'missing' },
-    ],
-  },
+// Configuración de los botones de navegación de equipos
+const TEAMS_CONFIG: AlbumTeam[] = [
+  { code: 'ARG', flag: '🇦🇷', label: 'ARG', apiId: 762 },
+  { code: 'ESP', flag: '🇪🇸', label: 'ESP', apiId: 760 },
+  { code: 'FRA', flag: '🇫🇷', label: 'FRA', apiId: 773 },
+  { code: 'BRA', flag: '🇧🇷', label: 'BRA', apiId: 764 },
 ];
 
-export function summarizeTeam(players: AlbumPlayer[]) {
-  return players.reduce(
-    (acc, player) => {
-      if (player.status === 'have') acc.have += 1;
-      else if (player.status === 'repeated') acc.repeated += 1;
-      else acc.missing += 1;
-      return acc;
-    },
-    { have: 0, repeated: 0, missing: 0 }
-  );
-}
+// 📋 LISTAS COMPLETAS DE 20 CASILLEROS PANINI REALS (FIELES A TUS IMÁGENES)
+const ALBUM_PLAYERS_FIXED: Record<TeamCode, { number: number; name: string }[]> = {
+  ARG: [
+    { number: 1, name: "Escudo AFA" },
+    { number: 2, name: "Emiliano Martínez" },
+    { number: 3, name: "Nahuel Molina" },
+    { number: 4, name: "Cristian Romero" },
+    { number: 5, name: "Nicolás Otamendi" },
+    { number: 6, name: "Nicolás Tagliafico" },
+    { number: 7, name: "Leonardo Balerdi" },
+    { number: 8, name: "Enzo Fernández" },
+    { number: 9, name: "Alexis Mac Allister" },
+    { number: 10, name: "Rodrigo De Paul" },
+    { number: 11, name: "Exequiel Palacios" },
+    { number: 12, name: "Leandro Paredes" },
+    { number: 13, name: "Foto del Plantel" },
+    { number: 14, name: "Nico Paz" },
+    { number: 15, name: "Franco Mastantuono" },
+    { number: 16, name: "Nicolás González" },
+    { number: 17, name: "Lionel Messi" },
+    { number: 18, name: "Lautaro Martínez" },
+    { number: 19, name: "Julián Álvarez" },
+    { number: 20, name: "Giuliano Simeone" }
+  ],
+  BRA: [
+    { number: 1, name: "Escudo CBF" },
+    { number: 2, name: "Alisson" },
+    { number: 3, name: "Bento" },
+    { number: 4, name: "Marquinhos" },
+    { number: 5, name: "Éder Militão" },
+    { number: 6, name: "Gabriel Magalhães" },
+    { number: 7, name: "Danilo" },
+    { number: 8, name: "Wesley" },
+    { number: 9, name: "Lucas Paquetá" },
+    { number: 10, name: "Casemiro" },
+    { number: 11, name: "Bruno Guimarães" },
+    { number: 12, name: "Luiz Henrique" },
+    { number: 13, name: "Foto del Plantel" },
+    { number: 14, name: "Vinicius Junior" },
+    { number: 15, name: "Rodrygo" },
+    { number: 16, name: "João Pedro" },
+    { number: 17, name: "Matheus Cunha" },
+    { number: 18, name: "Gabriel Martinelli" },
+    { number: 19, name: "Raphinha" },
+    { number: 20, name: "Estêvão" }
+  ],
+  ESP: [
+    { number: 1, name: "Escudo RFEF" },
+    { number: 2, name: "Unai Simón" },
+    { number: 3, name: "Robin Le Normand" },
+    { number: 4, name: "Aymeric Laporte" },
+    { number: 5, name: "Dean Huijsen" },
+    { number: 6, name: "Pedro Porro" },
+    { number: 7, name: "Dani Carvajal" },
+    { number: 8, name: "Marc Cucurella" },
+    { number: 9, name: "Martín Zubimendi" },
+    { number: 10, name: "Rodri" },
+    { number: 11, name: "Pedri" },
+    { number: 12, name: "Fabián Ruiz" },
+    { number: 13, name: "Foto del Plantel" },
+    { number: 14, name: "Mikel Merino" },
+    { number: 15, name: "Lamine Yamal" },
+    { number: 16, name: "Dani Olmo" },
+    { number: 17, name: "Nico Williams" },
+    { number: 18, name: "Ferran Torres" },
+    { number: 19, name: "Álvaro Morata" },
+    { number: 20, name: "Mikel Oyarzabal" }
+  ],
+  FRA: [
+    { number: 1, name: "Escudo FFF" },
+    { number: 2, name: "Mike Maignan" },
+    { number: 3, name: "Theo Hernández" },
+    { number: 4, name: "William Saliba" },
+    { number: 5, name: "Jules Koundé" },
+    { number: 6, name: "Ibrahima Konaté" },
+    { number: 7, name: "Dayot Upamecano" },
+    { number: 8, name: "Jonathan Clauss" },
+    { number: 9, name: "Aurélien Tchouaméni" },
+    { number: 10, name: "Eduardo Camavinga" },
+    { number: 11, name: "Youssouf Fofana" },
+    { number: 12, name: "Adrien Rabiot" },
+    { number: 13, name: "Foto del Plantel" },
+    { number: 14, name: "Michael Olise" },
+    { number: 15, name: "Ousmane Dembélé" },
+    { number: 16, name: "Bradley Barcola" },
+    { number: 17, name: "Warren Zaïre-Emery" },
+    { number: 18, name: "Kingsley Coman" },
+    { number: 19, name: "Randal Kolo Muani" },
+    { number: 20, name: "Kylian Mbappé" }
+  ]
+};
 
-// ---------------------------------------------------------------------------
-// COMPONENTE PRINCIPAL
-// ---------------------------------------------------------------------------
-export default function UploadScreen() {
+// Auxiliar para calcular edad exacta en vivo
+const calcularEdad = (fechaNacimiento: string): number => {
+  const hoy = new Date();
+  const cumple = new Date(fechaNacimiento);
+  let edad = hoy.getFullYear() - cumple.getFullYear();
+  const mes = hoy.getMonth() - cumple.getMonth();
+  if (mes < 0 || (mes === 0 && hoy.getDate() < cumple.getDate())) {
+    edad--;
+  }
+  return edad;
+};
+
+export default function Upload() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   
-  const [teams, setTeams] = useState<AlbumTeam[]>(albumTeams);
-  const [selectedTeamCode, setSelectedTeamCode] = useState<TeamCode>('ARG');
+  const [selectedTeam, setSelectedTeam] = useState<AlbumTeam>(TEAMS_CONFIG[0]);
+  const [players, setPlayers] = useState<AlbumPlayer[]>([]);
+  
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] = useState<{ title: string, message: string, type: 'success' | 'error' } | null>(null);
+  const fadeAnim = React.useRef(new Animated.Value(0)).current;
 
-  const selectedTeam = useMemo(() => teams.find(t => t.code === selectedTeamCode), [teams, selectedTeamCode]);
+  const showToast = (title: string, message: string, type: 'success' | 'error' = 'success') => {
+    setToastMessage({ title, message, type });
+    Animated.timing(fadeAnim, { toValue: 1, duration: 300, useNativeDriver: true }).start();
 
-  const handlePressPlayer = (player: AlbumPlayer) => {
-    setTeams(prevTeams => {
-      const newTeams = [...prevTeams];
-      const teamIndex = newTeams.findIndex(t => t.code === selectedTeamCode);
-      if (teamIndex === -1) return prevTeams;
-      
-      const newTeam = { ...newTeams[teamIndex] };
-      const newPlayers = [...newTeam.players];
-      const playerIndex = newPlayers.findIndex(p => p.number === player.number);
-      if (playerIndex === -1) return prevTeams;
+    setTimeout(() => {
+      Animated.timing(fadeAnim, { toValue: 0, duration: 300, useNativeDriver: true }).start(() => {
+        setToastMessage(null);
+        if (type === 'success') router.navigate('/home');
+      });
+    }, 2500);
+  };
 
-      const p = { ...newPlayers[playerIndex] };
-      
-      if (p.status === 'missing') {
-        p.status = 'have';
-      } else if (p.status === 'have') {
-        p.status = 'repeated';
-        p.repeatedCount = 2;
-      } else if (p.status === 'repeated') {
-        if ((p.repeatedCount || 2) < 4) {
-          p.repeatedCount = (p.repeatedCount || 2) + 1;
-        } else {
-          p.status = 'missing';
-          p.repeatedCount = undefined;
+  const fetchPlayersFromAPI = useCallback(async (team: AlbumTeam) => {
+    setLoading(true);
+    setError(null);
+    setPlayers([]);
+
+    const apiKey = process.env.EXPO_PUBLIC_FOOTBALL_DATA_API_KEY;
+
+    try {
+      const targetUrl = `https://api.football-data.org/v4/teams/${team.apiId}`;
+      const fetchUrl = Platform.OS === 'web' 
+        ? `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}` 
+        : targetUrl;
+
+      const response = await fetch(fetchUrl, {
+        method: 'GET',
+        headers: { 'X-Auth-Token': apiKey || '' },
+      });
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error('Demasiadas solicitudes. Límite de la API gratis (10 por min).');
         }
+        throw new Error(`Error del servidor: ${response.status}`);
       }
 
-      newPlayers[playerIndex] = p;
-      newTeam.players = newPlayers;
-      newTeams[teamIndex] = newTeam;
-      
-      return newTeams;
-    });
-  };
+      const data = await response.json();
+      const apiSquad = data.squad || [];
 
-  const getTotalRepeated = () => {
-    let total = 0;
-    teams.forEach(t => {
-      t.players.forEach(p => {
-        if (p.status === 'repeated') {
-          total += (p.repeatedCount || 2) - 1; 
+      const fixedList = ALBUM_PLAYERS_FIXED[team.code];
+      const mappedPlayers: AlbumPlayer[] = fixedList.map((fixedPlayer) => {
+        const apiPlayer = apiSquad.find((p: any) => p.name.toLowerCase() === fixedPlayer.name.toLowerCase());
+        
+        let posicionTraducida = "—";
+        if (apiPlayer?.position) {
+          switch (apiPlayer.position) {
+            case 'Goalkeeper': posicionTraducida = 'ARQ'; break;
+            case 'Defence': posicionTraducida = 'DEF'; break;
+            case 'Midfield': posicionTraducida = 'MED'; break;
+            case 'Offence': posicionTraducida = 'DEL'; break;
+          }
         }
+
+        return {
+          number: fixedPlayer.number, 
+          name: fixedPlayer.name,     
+          status: 'missing', // Localmente arrancan todas en faltante
+          repeatedCount: undefined,
+          position: posicionTraducida,
+          shirtNumber: apiPlayer?.shirtNumber || "—",
+          age: apiPlayer?.dateOfBirth ? calcularEdad(apiPlayer.dateOfBirth) : undefined,
+        };
       });
-    });
-    return total;
+
+      setPlayers(mappedPlayers);
+    } catch (err: any) {
+      setError(err.message || 'Error de red. Verifica tu conexión.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchPlayersFromAPI(selectedTeam);
+  }, [selectedTeam, fetchPlayersFromAPI]);
+
+  const handlePressPlayer = (playerNumber: number) => {
+    setPlayers(prevPlayers => prevPlayers.map(p => {
+      if (p.number !== playerNumber) return p;
+      if (p.status === 'missing') return { ...p, status: 'have' };
+      if (p.status === 'have') return { ...p, status: 'repeated', repeatedCount: 2 };
+      if (p.status === 'repeated') {
+        if ((p.repeatedCount || 2) < 4) {
+          return { ...p, repeatedCount: (p.repeatedCount || 2) + 1 };
+        } else {
+          return { ...p, status: 'missing', repeatedCount: undefined };
+        }
+      }
+      return p;
+    }));
   };
 
-  const summary = useMemo(() => {
-    if (!selectedTeam) return { have: 0, repeated: 0, missing: 0 };
-    return summarizeTeam(selectedTeam.players);
-  }, [selectedTeam]);
+  const summary = React.useMemo(() => {
+    return players.reduce(
+      (acc, p) => {
+        if (p.status === 'have') acc.have += 1;
+        else if (p.status === 'repeated') acc.repeated += 1;
+        else acc.missing += 1;
+        return acc;
+      },
+      { have: 0, repeated: 0, missing: 0 }
+    );
+  }, [players]);
 
-  const totalRepeated = getTotalRepeated();
+  const totalRepeated = React.useMemo(() => {
+    return players.reduce((total, p) => p.status === 'repeated' ? total + ((p.repeatedCount || 2) - 1) : total, 0);
+  }, [players]);
 
-  // Función modificada para redirigir a /home
-  const handlePublish = () => {
-    console.log(`Publicando ${totalRepeated} repetidas y volviendo al inicio...`);
-    
-    // Redirige reemplazando la pantalla actual en el stack
-    router.replace('/home');
+  const handleSimulateSave = () => {
+    // Como no hay Supabase, simulamos un éxito local que vuelve a la home
+    showToast('¡Guardado Local!', 'Cambios guardados temporalmente en el dispositivo.', 'success');
   };
 
   const renderStickerItem = ({ item: player }: { item: AlbumPlayer }) => {
@@ -229,34 +275,65 @@ export default function UploadScreen() {
     let stickerStyle = styles.stickerMissing;
     let numStyle = styles.stickerNumMissing;
     let nameStyle = styles.stickerNameMissing;
+    let infoTextStyle = styles.infoTextMissing; 
 
     if (isHave) {
       stickerStyle = styles.stickerHave;
       numStyle = styles.stickerNumHave;
       nameStyle = styles.stickerNameHave;
+      infoTextStyle = styles.infoTextHave;
     } else if (isRepeated) {
       stickerStyle = styles.stickerRepeated;
       numStyle = styles.stickerNumRepeated;
       nameStyle = styles.stickerNameRepeated;
+      infoTextStyle = styles.infoTextRepeated;
     }
 
     return (
       <View style={styles.stickerWrapper}>
-        <Pressable 
-          style={[styles.sticker, stickerStyle]}
-          onPress={() => handlePressPlayer(player)}
-        >
-          <Text style={[styles.stickerNumber, numStyle]}>{player.number}</Text>
-          <Text style={[styles.stickerName, nameStyle]} numberOfLines={1} adjustsFontSizeToFit>{player.name}</Text>
+        <Pressable style={[styles.sticker, stickerStyle]} onPress={() => handlePressPlayer(player.number)}>
+          
+          {/* TOP ROW */}
+          <View style={styles.stickerHeaderRow}>
+            <Text style={[styles.stickerNumber, numStyle]}>#{player.number}</Text>
+            <Text style={[styles.stickerPositionTag, isMissing && styles.positionTagMissing]}>
+              {player.position}
+            </Text>
+          </View>
 
+          {/* MIDDLE ROW */}
+          <Text style={[styles.stickerName, nameStyle]} numberOfLines={2} adjustsFontSizeToFit>
+            {player.name}
+          </Text>
+          
+          {/* BOTTOM ROW */}
+          <View style={styles.stickerFooterRow}>
+            {player.shirtNumber && player.shirtNumber !== "—" ? (
+              <Text style={[styles.stickerFooterText, infoTextStyle]}>
+                👕 {player.shirtNumber}
+              </Text>
+            ) : (
+              <View /> 
+            )}
+            
+            {player.age ? (
+              <Text style={[styles.stickerFooterText, infoTextStyle]}>
+                🎂 {player.age}a
+              </Text>
+            ) : (
+              <Text style={[styles.stickerFooterText, infoTextStyle]}>—</Text>
+            )}
+          </View>
+
+          {/* Badges Flotantes */}
           {isHave && (
             <View style={[styles.badge, styles.badgeHave]}>
-              <Ionicons name="checkmark" size={12} color="#131313" />
+              <Ionicons name="checkmark" size={10} color="#131313" />
             </View>
           )}
           {isRepeated && (
             <View style={[styles.badge, styles.badgeRepeated]}>
-              <Text style={styles.badgeText}>x{player.repeatedCount || 2}</Text>
+              <Text style={styles.badgeText}>+{player.repeatedCount ? player.repeatedCount - 1 : 1}</Text>
             </View>
           )}
         </Pressable>
@@ -272,26 +349,23 @@ export default function UploadScreen() {
           <Ionicons name="arrow-back" size={24} color="#FFF" />
         </TouchableOpacity>
         <View style={styles.headerTitles}>
-          <Text style={styles.title}>Mi Álbum</Text>
-          <Text style={styles.subtitle}>Tocá cada figurita para marcarla</Text>
+          <Text style={styles.title}>Mi Álbum Real ⚽</Text>
+          <Text style={styles.subtitle}>Versión Local Offline (20 Figus)</Text>
         </View>
-        <TouchableOpacity style={styles.filterButton}>
-          <Ionicons name="options-outline" size={24} color="#666" />
-        </TouchableOpacity>
       </View>
 
-      {/* Team Tabs */}
+      {/* Selector de Pestañas */}
       <View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabsContainer}>
-          {teams.map(team => {
-            const isSelected = team.code === selectedTeamCode;
+          {TEAMS_CONFIG.map(team => {
+            const isSelected = team.code === selectedTeam.code;
             return (
               <TouchableOpacity
                 key={team.code}
                 style={[styles.tabButton, isSelected && styles.tabButtonSelected]}
-                onPress={() => setSelectedTeamCode(team.code)}
+                onPress={() => !loading && setSelectedTeam(team)}
               >
-                <Text style={[styles.tabFlag, isSelected && styles.tabTextSelected]}>{team.flag}</Text>
+                <Text style={styles.tabFlag}>{team.flag}</Text>
                 <Text style={[styles.tabText, isSelected && styles.tabTextSelected]}>{team.label}</Text>
               </TouchableOpacity>
             );
@@ -299,243 +373,159 @@ export default function UploadScreen() {
         </ScrollView>
       </View>
 
-      {/* Summary */}
-      <View style={styles.summaryContainer}>
-        <View style={styles.summaryItem}>
-          <View style={[styles.summaryDot, { backgroundColor: '#22C55E' }]} />
-          <Text style={styles.summaryText}>{summary.have} tengo</Text>
+      {/* CARGAS Y ERRORES */}
+      {loading && (
+        <View style={styles.centerContainer}>
+          <ActivityIndicator size="large" color="#DE3C3F" />
+          <Text style={styles.infoText}>Consultando plantilla de la API de Fútbol...</Text>
         </View>
-        <View style={styles.summaryItem}>
-          <View style={[styles.summaryDot, { backgroundColor: '#FBBF24' }]} />
-          <Text style={styles.summaryText}>{summary.repeated} repetidas</Text>
-        </View>
-        <View style={styles.summaryItem}>
-          <View style={[styles.summaryDot, { backgroundColor: '#4B5563' }]} />
-          <Text style={styles.summaryText}>{summary.missing} faltan</Text>
-        </View>
-        <View style={{ flex: 1 }} />
-        <Text style={styles.summaryHelp}>tocá para cambiar</Text>
-      </View>
+      )}
 
-      {/* Stickers Grid */}
-      <FlatList
-        data={selectedTeam?.players || []}
-        keyExtractor={(item) => `${selectedTeamCode}-${item.number}`}
-        renderItem={renderStickerItem}
-        numColumns={4}
-        columnWrapperStyle={styles.row}
-        contentContainerStyle={styles.gridContent}
-      />
+      {error && (
+        <View style={styles.centerContainer}>
+          <Ionicons name="alert-circle-outline" size={48} color="#DE3C3F" />
+          <Text style={styles.errorText}>{error}</Text>
+          <TouchableOpacity style={styles.retryButton} onPress={() => fetchPlayersFromAPI(selectedTeam)}>
+            <Text style={styles.retryButtonText}>Reintentar conexión</Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
-      {/* Publish Button */}
-      <View style={[styles.bottomBar, { paddingBottom: Math.max(insets.bottom, 16) }]}>
-        <TouchableOpacity style={styles.publishButton} onPress={handlePublish}>
-          <Text style={styles.publishText}>PUBLICAR {totalRepeated} REPETIDAS</Text>
-        </TouchableOpacity>
-      </View>
+      {!loading && !error && players.length === 0 && (
+        <View style={styles.centerContainer}>
+          <Ionicons name="folder-open-outline" size={48} color="#8A8A8E" />
+          <Text style={styles.infoText}>No se pudieron inicializar los casilleros.</Text>
+        </View>
+      )}
+
+      {!loading && !error && players.length > 0 && (
+        <>
+          {/* Panel de Control de Totales */}
+          <View style={styles.summaryContainer}>
+            <View style={styles.summaryItem}>
+              <View style={[styles.summaryDot, { backgroundColor: '#4ADE80' }]} />
+              <Text style={styles.summaryText}>{summary.have} tengo</Text>
+            </View>
+            <View style={styles.summaryItem}>
+              <View style={[styles.summaryDot, { backgroundColor: '#FBBF24' }]} />
+              <Text style={styles.summaryText}>{summary.repeated} con repes</Text>
+            </View>
+            <View style={styles.summaryItem}>
+              <View style={[styles.summaryDot, { backgroundColor: '#4B5563' }]} />
+              <Text style={styles.summaryText}>{summary.missing} faltan</Text>
+            </View>
+          </View>
+
+          {/* Grilla Principal */}
+          <FlatList
+            data={players}
+            keyExtractor={(item) => `${selectedTeam.code}-${item.number}`}
+            renderItem={renderStickerItem}
+            numColumns={4}
+            columnWrapperStyle={styles.row}
+            contentContainerStyle={styles.gridContent}
+          />
+
+          {/* Barra Inferior */}
+          <View style={[styles.bottomBar, { paddingBottom: Math.max(insets.bottom, 16) }]}>
+            <TouchableOpacity style={styles.publishButton} onPress={handleSimulateSave}>
+              <Text style={styles.publishText}>FINALIZAR REVISIÓN (+{totalRepeated} REPES)</Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
+
+      {/* Toast Animado */}
+      {toastMessage && (
+        <Animated.View style={[styles.toastContainer, { opacity: fadeAnim }]}>
+          <View style={styles.toast}>
+            <Ionicons name="checkmark-circle" size={24} color="#FFF" />
+            <View style={styles.toastTextContainer}>
+              <Text style={styles.toastTitle}>{toastMessage.title}</Text>
+              <Text style={styles.toastMessage}>{toastMessage.message}</Text>
+            </View>
+          </View>
+        </Animated.View>
+      )}
     </View>
   );
 }
 
 // ---------------------------------------------------------------------------
-// ESTILOS
+// ESTILOS PREMIUM
 // ---------------------------------------------------------------------------
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#131313',
+  container: { flex: 1, backgroundColor: '#131313' },
+  header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12 },
+  backButton: { padding: 4 },
+  headerTitles: { flex: 1, marginLeft: 12 },
+  title: { color: '#FFF', fontSize: 22, fontWeight: '900' },
+  subtitle: { color: '#8A8A8E', fontSize: 14, marginTop: 2 },
+  tabsContainer: { paddingHorizontal: 16, paddingVertical: 12, gap: 8 },
+  tabButton: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 24, backgroundColor: '#1C1C1E', borderWidth: 1, borderColor: '#2C2C2E' },
+  tabButtonSelected: { backgroundColor: '#DE3C3F', borderColor: '#DE3C3F' },
+  tabFlag: { marginRight: 6, fontSize: 14 },
+  tabText: { color: '#8A8A8E', fontSize: 15, fontWeight: '700' },
+  tabTextSelected: { color: '#FFF' },
+  summaryContainer: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingBottom: 16 },
+  summaryItem: { flexDirection: 'row', alignItems: 'center', marginRight: 14 },
+  summaryDot: { width: 10, height: 10, borderRadius: 5, marginRight: 6 },
+  summaryText: { color: '#8A8A8E', fontSize: 12 },
+  centerContainer: { flex: 0.6, justifyContent: 'center', alignItems: 'center', padding: 32 },
+  infoText: { color: '#8A8A8E', fontSize: 14, marginTop: 12, textAlign: 'center' },
+  errorText: { color: '#DE3C3F', fontSize: 14, marginTop: 12, textAlign: 'center', fontWeight: '600' },
+  retryButton: { backgroundColor: '#1C1C1E', paddingHorizontal: 20, paddingVertical: 12, borderRadius: 12, marginTop: 16, borderWidth: 1, borderColor: '#DE3C3F' },
+  retryButtonText: { color: '#FFF', fontWeight: '700', fontSize: 14 },
+  
+  gridContent: { paddingHorizontal: 12, paddingBottom: 120 },
+  row: { flex: 1, justifyContent: 'flex-start' },
+  
+  stickerWrapper: { flex: 1 / 4, padding: 4 },
+  sticker: { 
+    flex: 1, 
+    aspectRatio: 0.72, 
+    borderRadius: 14, 
+    padding: 8, 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    borderWidth: 1.5 
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  backButton: {
-    padding: 4,
-  },
-  headerTitles: {
-    flex: 1,
-    marginLeft: 12,
-  },
-  title: {
-    color: '#FFF',
-    fontSize: 22,
-    fontWeight: '900',
-  },
-  subtitle: {
-    color: '#8A8A8E',
-    fontSize: 14,
-    marginTop: 2,
-  },
-  filterButton: {
-    padding: 4,
-  },
-  tabsContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    gap: 8,
-  },
-  tabButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 24,
-    backgroundColor: '#1C1C1E',
-    borderWidth: 1,
-    borderColor: '#2C2C2E',
-  },
-  tabButtonSelected: {
-    backgroundColor: '#DE3C3F',
-    borderColor: '#DE3C3F',
-  },
-  tabFlag: {
-    marginRight: 6,
-    fontSize: 14,
-  },
-  tabText: {
-    color: '#8A8A8E',
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  tabTextSelected: {
-    color: '#FFF',
-    opacity: 1,
-  },
-  summaryContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-  },
-  summaryItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 14,
-  },
-  summaryDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginRight: 6,
-  },
-  summaryText: {
-    color: '#8A8A8E',
-    fontSize: 12,
-  },
-  summaryHelp: {
-    color: '#666',
-    fontSize: 12,
-  },
-  gridContent: {
-    paddingHorizontal: 12,
-    paddingBottom: 120,
-  },
-  row: {
-    flex: 1,
-    justifyContent: 'flex-start',
-  },
-  stickerWrapper: {
-    flex: 1 / 4,
-    padding: 4,
-  },
-  sticker: {
-    flex: 1,
-    aspectRatio: 0.85,
-    borderRadius: 12,
-    padding: 6,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-  },
-  stickerMissing: {
-    backgroundColor: '#1A1C1E',
-    borderColor: '#2C2C2E',
-  },
-  stickerHave: {
-    backgroundColor: '#0A2012',
-    borderColor: '#1A5331',
-  },
-  stickerRepeated: {
-    backgroundColor: '#271E0B',
-    borderColor: '#785315',
-  },
-  stickerNumber: {
-    fontSize: 20,
-    fontWeight: '900',
-    marginBottom: 4,
-  },
-  stickerNumMissing: {
-    color: '#5C5C5E',
-  },
-  stickerNumHave: {
-    color: '#22C55E',
-  },
-  stickerNumRepeated: {
-    color: '#FBBF24',
-  },
-  stickerName: {
-    fontSize: 10,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  stickerNameMissing: {
-    color: '#5C5C5E',
-  },
-  stickerNameHave: {
-    color: '#22C55E',
-  },
-  stickerNameRepeated: {
-    color: '#FBBF24',
-  },
-  badge: {
-    position: 'absolute',
-    top: -4,
-    right: -4,
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1.5,
-    borderColor: '#131313', 
-  },
-  badgeHave: {
-    backgroundColor: '#22C55E',
-  },
-  badgeRepeated: {
-    backgroundColor: '#FBBF24',
-  },
-  badgeText: {
-    color: '#131313',
-    fontSize: 8,
-    fontWeight: '900',
-  },
-  bottomBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    backgroundColor: '#131313',
-    borderTopWidth: 1,
-    borderTopColor: '#1C1C1E',
-  },
-  publishButton: {
-    backgroundColor: '#DE3C3F',
-    borderRadius: 16,
-    paddingVertical: 16,
-    alignItems: 'center',
-    shadowColor: '#DE3C3F',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-  },
-  publishText: {
-    color: '#FFF',
-    fontSize: 16,
-    fontWeight: '800',
-  }
+  
+  stickerMissing: { backgroundColor: '#1A1C1E', borderColor: '#2C2C2E' },
+  stickerHave: { backgroundColor: '#0B2916', borderColor: '#1E6B37' },
+  stickerRepeated: { backgroundColor: '#2E220A', borderColor: '#8A6218' },
+  
+  stickerHeaderRow: { flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' },
+  stickerNumber: { fontSize: 13, fontWeight: '900' },
+  numMissing: { color: '#4E5256' },
+  stickerNumHave: { color: '#4ADE80' },
+  stickerNumRepeated: { color: '#FBBF24' },
+  
+  stickerPositionTag: { fontSize: 8, fontWeight: '800', color: '#FFF', backgroundColor: '#B91C1C', paddingHorizontal: 5, paddingVertical: 2, borderRadius: 5 },
+  positionTagMissing: { backgroundColor: '#3A3D40', color: '#8A8A8E' },
+
+  stickerName: { fontSize: 11, fontWeight: '800', textAlign: 'center', width: '100%', marginVertical: 4 },
+  stickerNameMissing: { color: '#6B7280' },
+  stickerNameHave: { color: '#FFF' },
+  stickerNameRepeated: { color: '#FFF' },
+  
+  stickerFooterRow: { flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 0.5, borderTopColor: 'rgba(255,255,255,0.08)', paddingTop: 4 },
+  stickerFooterText: { fontSize: 9, fontWeight: '600' },
+  infoTextMissing: { color: '#4E5256' },
+  infoTextHave: { color: '#A7F3D0' },
+  infoTextRepeated: { color: '#FDE68A' },
+  
+  badge: { position: 'absolute', top: -5, right: -5, width: 20, height: 20, borderRadius: 10, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: '#131313' },
+  badgeHave: { backgroundColor: '#4ADE80' },
+  badgeRepeated: { backgroundColor: '#FBBF24' },
+  badgeText: { color: '#131313', fontSize: 9, fontWeight: '900' },
+  
+  bottomBar: { position: 'absolute', bottom: 0, left: 0, right: 0, paddingHorizontal: 16, paddingTop: 16, backgroundColor: '#131313', borderTopWidth: 1, borderTopColor: '#1C1C1E' },
+  publishButton: { backgroundColor: '#DE3C3F', borderRadius: 16, paddingVertical: 16, alignItems: 'center' },
+  publishText: { color: '#FFF', fontSize: 16, fontWeight: '800' },
+  toastContainer: { position: 'absolute', top: 60, left: 20, right: 20, alignItems: 'center', zIndex: 1000 },
+  toast: { flexDirection: 'row', backgroundColor: '#22C55E', padding: 16, borderRadius: 16, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 5, elevation: 6 },
+  toastTextContainer: { marginLeft: 12, flex: 1 },
+  toastTitle: { color: '#FFF', fontSize: 16, fontWeight: '800' },
+  toastMessage: { color: '#FFF', fontSize: 14, marginTop: 2 }
 });
