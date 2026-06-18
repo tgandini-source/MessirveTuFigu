@@ -78,9 +78,9 @@ export function PitchBottomNav({ active }: { active: NavigationKey }) {
   const router = useRouter();
 
   const items: Array<{ key: NavigationKey; label: string; icon: string; route: string }> = [
-    { key: 'home', label: 'Home', icon: 'square.grid.2x2', route: '/home' },
+    { key: 'home', label: 'Inicio', icon: 'square.grid.2x2', route: '/home' },
     { key: 'explore', label: 'Matches', icon: 'sparkles', route: '/explore' },
-    { key: 'upload', label: 'Upload', icon: 'square.and.arrow.up', route: '/upload' },
+    { key: 'upload', label: 'Subir', icon: 'square.and.arrow.up', route: '/upload' },
     { key: 'chat', label: 'Chat', icon: 'bubble.left.and.bubble.right', route: '/chat' },
   ];
 
