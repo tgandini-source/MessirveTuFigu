@@ -264,7 +264,7 @@ export default function Upload() {
 
   const handleSimulateSave = () => {
     // Como no hay Supabase, simulamos un éxito local que vuelve a la home
-    showToast('¡Guardado Local!', 'Cambios guardados temporalmente en el dispositivo.', 'success');
+    showToast('¡Guardado !', 'Cambios guardados .', 'success');
   };
 
   const renderStickerItem = ({ item: player }: { item: AlbumPlayer }) => {
@@ -273,7 +273,7 @@ export default function Upload() {
     const isRepeated = player.status === 'repeated';
 
     let stickerStyle = styles.stickerMissing;
-    let numStyle = styles.stickerNumMissing;
+    let numStyle = styles.stickerMissing;
     let nameStyle = styles.stickerNameMissing;
     let infoTextStyle = styles.infoTextMissing; 
 
@@ -345,12 +345,20 @@ export default function Upload() {
     <View style={[styles.container, { paddingTop: Math.max(insets.top, 16) }]}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity 
+          onPress={() => {
+            if (router.canGoBack()) {
+              router.back();
+            } else {
+              router.replace('/'); // O '/home' según cómo se llame tu pantalla principal
+            }
+          }} 
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color="#FFF" />
         </TouchableOpacity>
         <View style={styles.headerTitles}>
           <Text style={styles.title}>Mi Álbum Real ⚽</Text>
-          <Text style={styles.subtitle}>Versión Local Offline (20 Figus)</Text>
         </View>
       </View>
 
