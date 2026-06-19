@@ -10,16 +10,16 @@ export default function RootLayout() {
           headerShown: false,
           contentStyle: { backgroundColor: '#131313' },
         }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="deck" />
+        {/* <Stack.Screen name="index" /> */}
+        {/* <Stack.Screen name="deck" /> */}
         <Stack.Screen name="home" />
-        <Stack.Screen name="loading" />
         <Stack.Screen name="upload" />
         <Stack.Screen name="explore" />
         <Stack.Screen name="detail" />
         <Stack.Screen name="chat" />
-        <Stack.Screen name="success" />
+        <Stack.Screen name="loading" />
         <Stack.Screen name="empty" />
+        <Stack.Screen name="success" />
       </Stack>
     </>
   );

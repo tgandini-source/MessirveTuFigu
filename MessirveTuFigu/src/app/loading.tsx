@@ -47,10 +47,10 @@ export default function LoadingScreen() {
       <View style={styles.overlay} />
 
       <View style={styles.badgeLeft}>
-        <Text style={styles.badgeMissing}>MISSING</Text>
+        <Text style={styles.badgeMissing}>LA QUERES</Text>
       </View>
       <View style={styles.badgeRight}>
-        <Text style={styles.badgeDuplicate}>DUPLICATE</Text>
+        <Text style={styles.badgeDuplicate}>LA TENES</Text>
       </View>
 
       <View style={styles.center}>
@@ -64,10 +64,10 @@ export default function LoadingScreen() {
           <View style={[styles.progressFill, { width: `${progress}%` }]} />
         </View>
 
-        <Text style={styles.safeBadge}>Transacción segura</Text>
+        <Text style={styles.safeBadge}>Procesando</Text>
       </View>
 
-      <Text style={styles.version}>Pitch Side Trading v2.4.0</Text>
+      <Text style={styles.version}>Rueda de hamster v2.4.0</Text>
     </View>
   );
 }

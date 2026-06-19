@@ -45,8 +45,10 @@ export default function ChatScreen() {
           </View>
         </View>
 
-        <Pressable style={styles.confirmButton}>
-          <Text style={styles.confirmText}>Cuando realices el intercambio, confirmalo aqui por favor</Text>
+        <Pressable
+          style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
+          onPress={() => router.push('/success' as never)}>
+          <Text style={styles.primaryButtonText}>Confirma el intercambio</Text>
         </Pressable>
 
         <View style={styles.messageRow}>
@@ -320,6 +322,23 @@ const styles = StyleSheet.create({
   sendButtonText: {
     color: '#5b000e',
     fontSize: 18,
+    fontWeight: '900',
+  },
+  primaryButton: {
+    minHeight: 64,
+    borderRadius: 18,
+    backgroundColor: '#f5f4f3',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+  },
+  pressed: {
+    opacity: 0.88,
+    transform: [{ scale: 0.99 }],
+  },
+  primaryButtonText: {
+    color: '#5b000e',
+    fontSize: 20,
     fontWeight: '900',
   },
 });

@@ -68,7 +68,7 @@ export function PitchPill({ children, tone = 'neutral' }: PillProps) {
 export function PitchActionButton({ label, icon, tone = 'surface', onPress }: ActionButtonProps) {
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [styles.actionBase, actionToneStyles[tone], pressed && styles.pressed]}>
-      {icon ? <SymbolView name={icon} tintColor={tone === 'primary' ? '#5b000e' : '#f0c2bf'} size={18} /> : null}
+      {/* {icon ? <SymbolView name={icon} tintColor={tone === 'primary' ? '#5b000e' : '#f0c2bf'} size={18} /> : null} */}
       <Text style={[styles.actionLabel, tone === 'primary' ? styles.primaryLabel : styles.surfaceLabel]}>{label}</Text>
     </Pressable>
   );
@@ -79,8 +79,8 @@ export function PitchBottomNav({ active }: { active: NavigationKey }) {
 
   const items: Array<{ key: NavigationKey; label: string; icon: string; route: string }> = [
     { key: 'home', label: 'Inicio', icon: 'square.grid.2x2', route: '/home' },
-    { key: 'explore', label: 'Matches', icon: 'sparkles', route: '/explore' },
     { key: 'upload', label: 'Subir', icon: 'square.and.arrow.up', route: '/upload' },
+    { key: 'explore', label: 'Matches', icon: 'sparkles', route: '/explore' },
     { key: 'chat', label: 'Chat', icon: 'bubble.left.and.bubble.right', route: '/chat' },
   ];
 
@@ -94,12 +94,12 @@ export function PitchBottomNav({ active }: { active: NavigationKey }) {
             key={item.key}
             onPress={() => router.push(item.route as never)}
             style={({ pressed }) => [styles.navItem, isActive && styles.navItemActive, pressed && styles.pressed]}>
-            <SymbolView
+            {/* <SymbolView
               name={item.icon}
               tintColor={isActive ? '#5b000e' : '#f0c2bf'}
               size={20}
               weight={isActive ? 'bold' : 'regular'}
-            />
+            /> */}
             <Text style={[styles.navLabel, isActive && styles.navLabelActive]}>{item.label}</Text>
           </Pressable>
         );
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: '#e5e2e1',
-    fontSize: 28,
+    fontSize: 20,
     fontWeight: '900',
     letterSpacing: -1,
     textAlign: 'center',

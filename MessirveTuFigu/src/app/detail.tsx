@@ -26,7 +26,7 @@ export default function DetailScreen() {
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.cardWrap}>
-          <Image source={match.incomingSticker.imageUrl} style={StyleSheet.absoluteFill} contentFit="cover" />
+          <Image source={match.incomingSticker.imageUrl} style={StyleSheet.absoluteFill} contentFit="contain" />
           <View style={styles.cardOverlay} />
 
           <View style={styles.cardBadges}>
@@ -96,7 +96,7 @@ export default function DetailScreen() {
           <Pressable
             style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
             onPress={() => router.push('/success' as never)}>
-            <Text style={styles.primaryButtonText}>Cuando realices el intercambio, confirmalo aqui por favor</Text>
+            <Text style={styles.primaryButtonText}>Confirma el intercambio</Text>
           </Pressable>
           <Pressable
             style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]}

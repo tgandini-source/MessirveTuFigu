@@ -249,7 +249,10 @@ export default function Upload() {
     return players.reduce(
       (acc, p) => {
         if (p.status === 'have') acc.have += 1;
-        else if (p.status === 'repeated') acc.repeated += 1;
+        else if (p.status === 'repeated') {
+           acc.repeated += 1;
+           acc.have += 1;
+        }
         else acc.missing += 1;
         return acc;
       },
@@ -349,7 +352,7 @@ export default function Upload() {
             if (router.canGoBack()) {
               router.back();
             } else {
-              router.replace('/'); // O '/home' según cómo se llame tu pantalla principal
+              router.replace('/home'); // O '/home' según cómo se llame tu pantalla principal
             }
           }} 
           style={styles.backButton}
@@ -415,7 +418,7 @@ export default function Upload() {
             </View>
             <View style={styles.summaryItem}>
               <View style={[styles.summaryDot, { backgroundColor: '#FBBF24' }]} />
-              <Text style={styles.summaryText}>{summary.repeated} con repes</Text>
+              <Text style={styles.summaryText}>{summary.repeated} repetidas</Text>
             </View>
             <View style={styles.summaryItem}>
               <View style={[styles.summaryDot, { backgroundColor: '#4B5563' }]} />

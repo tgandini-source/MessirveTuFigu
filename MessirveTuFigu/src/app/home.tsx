@@ -65,7 +65,7 @@ export default function HomeScreen() {
           <ActionCard
             title="AGREGA TUS REPETIDAS"
             subtitle="Comenza a participar"
-            icon="▣"
+            icon=""
             accent="coral"
             onPress={() => router.push('/upload' as never)}
           />
@@ -73,7 +73,7 @@ export default function HomeScreen() {
           <ActionCard
             title="VERIFICAR TUS MATCH"
             subtitle="Posibles intercambios"
-            icon="⌖"
+            icon=""
             accent="mint"
             onPress={() => router.push('/loading' as never)}
           />
@@ -107,7 +107,7 @@ export default function HomeScreen() {
             )}
           </View>
           <Text style={styles.statsText}>
-            <Text style={styles.statsStrong}>{feed?.activeTraders ?? 128} traders</Text> activos
+            <Text style={styles.statsStrong}>{feed?.activeTraders ?? 128} usuarios</Text> activos
             ahora mismo en tu zona.
           </Text>
           <Text style={styles.apiBadge}>{hasFootballDataApiKey() ? 'API listada' : 'API key pendiente'}</Text>
