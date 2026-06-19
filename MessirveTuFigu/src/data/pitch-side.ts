@@ -72,7 +72,7 @@ const fallbackTeams = [
 const collectorBase: CollectorProfile[] = [
   {
     id: 'mateo',
-    name: 'Mateo',
+    name: 'Mario',
     avatarUrl: profileMateo,
     rank: 'Pro',
     rating: '5.0',
@@ -83,7 +83,7 @@ const collectorBase: CollectorProfile[] = [
   },
   {
     id: 'carlos',
-    name: 'Carlos',
+    name: 'Cristian',
     avatarUrl: profileCarlos,
     rank: 'Elite',
     rating: '4.9',
@@ -94,7 +94,7 @@ const collectorBase: CollectorProfile[] = [
   },
   {
     id: 'sarah',
-    name: 'Sarah_88',
+    name: 'Yonatan',
     avatarUrl: profileSarah,
     rank: 'Gold',
     rating: '5.0',
@@ -105,7 +105,7 @@ const collectorBase: CollectorProfile[] = [
   },
   {
     id: 'marco',
-    name: 'Marco Polo',
+    name: 'Tiago',
     avatarUrl: profileMarco,
     rank: 'Veteran',
     rating: '4.8',
@@ -149,7 +149,7 @@ const baseSuggestions: MatchSuggestion[] = [
       status: 'duplicate',
     },
     matchPercent: 92,
-    headline: 'Mateo busca un perfil de intercambio 92%',
+    headline: 'Mario busca un perfil de intercambio 92%',
     message: 'Tiene la Mbappé que te falta y acepta tu duplicada.',
     tags: ['Near you', 'Verified collector'],
   },
@@ -183,7 +183,7 @@ const baseSuggestions: MatchSuggestion[] = [
       status: 'duplicate',
     },
     matchPercent: 88,
-    headline: 'Sarah_88 tiene coincidencia parcial',
+    headline: 'Yonatan tiene coincidencia parcial',
     message: 'Intercambio rápido, misma zona y una figurita clave.',
     tags: ['3 km away', 'Match potential'],
   },
@@ -217,7 +217,7 @@ const baseSuggestions: MatchSuggestion[] = [
       status: 'duplicate',
     },
     matchPercent: 84,
-    headline: 'Marco Polo sigue activo',
+    headline: 'Tiago sigue activo',
     message: 'Queda como backup para cerrar otra transacción.',
     tags: ['Last seen 5m ago', 'Backup'],
   },
