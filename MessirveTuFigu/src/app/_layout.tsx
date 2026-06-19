@@ -9,7 +9,9 @@ export default function RootLayout() {
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: '#131313' },
-        }}>
+        }}
+        initialRouteName="home"
+      >
         {/* <Stack.Screen name="index" /> */}
         {/* <Stack.Screen name="deck" /> */}
         <Stack.Screen name="home" />
