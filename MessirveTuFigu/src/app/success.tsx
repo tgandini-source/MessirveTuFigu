@@ -19,7 +19,7 @@ export default function SuccessScreen() {
       <Image source={pitchSideAssets.successHero} style={StyleSheet.absoluteFill} contentFit="cover" />
       <View style={styles.overlay} />
 
-      <PitchHeader title="Pitch Side Trading" showBack={false} showActions={true} />
+      <PitchHeader title="¡¡FELICITACIONES!!" showBack={false} showActions={true} />
 
       <View style={styles.content}>
         <PitchPill tone="mint">¡LOGRADO!</PitchPill>
@@ -36,7 +36,7 @@ export default function SuccessScreen() {
           </View>
         </View>
 
-        <PitchActionButton label="Ver mis figuritas" icon="square.grid.2x2" tone="primary" onPress={() => router.push('/home' as never)} />
+        <PitchActionButton label="Ir a la pantalla de inicio" icon="square.grid.2x2" tone="primary" onPress={() => router.push('/home' as never)} />
 
         <Pressable style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]} onPress={() => router.push('/explore' as never)}>
           <Text style={styles.secondaryButtonText}>Seguir explorando</Text>

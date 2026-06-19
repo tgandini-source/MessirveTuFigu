@@ -38,7 +38,7 @@ export function PitchHeader({ title, subtitle, location, showBack, showActions =
         ) : (
           <View style={styles.locationBlock}>
             <SymbolView name="location" tintColor="#f0c2bf" size={20} />
-            <Text style={styles.locationText}>{location ?? 'Doha, Qatar'}</Text>
+            <Text style={styles.locationText}>{location ?? ''}</Text>
           </View>
         )}
       </View>
