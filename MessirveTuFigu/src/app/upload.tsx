@@ -1,9 +1,8 @@
-import type { ImageSourcePropType } from 'react-native';
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Pressable, FlatList, ActivityIndicator, Platform, Animated } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, Animated, FlatList, Platform, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // ---------------------------------------------------------------------------
 // TIPOS E INTERFACES
@@ -236,7 +235,7 @@ export default function Upload() {
       if (p.status === 'missing') return { ...p, status: 'have' };
       if (p.status === 'have') return { ...p, status: 'repeated', repeatedCount: 2 };
       if (p.status === 'repeated') {
-        if ((p.repeatedCount || 2) < 4) {
+        if ((p.repeatedCount || 2) < 2) {
           return { ...p, repeatedCount: (p.repeatedCount || 2) + 1 };
         } else {
           return { ...p, status: 'missing', repeatedCount: undefined };
@@ -264,7 +263,7 @@ export default function Upload() {
 
   const handleSimulateSave = () => {
     // Como no hay Supabase, simulamos un éxito local que vuelve a la home
-    showToast('¡Guardado !', 'Cambios guardados .', 'success');
+    showToast('¡¡CAMBIOS GUARDADOS!!', 'Redireccionando', 'success');
   };
 
   const renderStickerItem = ({ item: player }: { item: AlbumPlayer }) => {
@@ -273,7 +272,7 @@ export default function Upload() {
     const isRepeated = player.status === 'repeated';
 
     let stickerStyle = styles.stickerMissing;
-    let numStyle = styles.stickerMissing;
+    let numStyle: any = styles.stickerMissing;
     let nameStyle = styles.stickerNameMissing;
     let infoTextStyle = styles.infoTextMissing; 
 
@@ -358,7 +357,7 @@ export default function Upload() {
           <Ionicons name="arrow-back" size={24} color="#FFF" />
         </TouchableOpacity>
         <View style={styles.headerTitles}>
-          <Text style={styles.title}>Mi Álbum Real ⚽</Text>
+          <Text style={styles.title}>Atras</Text>
         </View>
       </View>
 
@@ -437,7 +436,7 @@ export default function Upload() {
           {/* Barra Inferior */}
           <View style={[styles.bottomBar, { paddingBottom: Math.max(insets.bottom, 16) }]}>
             <TouchableOpacity style={styles.publishButton} onPress={handleSimulateSave}>
-              <Text style={styles.publishText}>FINALIZAR REVISIÓN (+{totalRepeated} REPES)</Text>
+              <Text style={styles.publishText}>Guardar cambios (+{totalRepeated} Repetidas)</Text>
             </TouchableOpacity>
           </View>
         </>

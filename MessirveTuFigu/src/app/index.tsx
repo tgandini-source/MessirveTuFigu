@@ -1,4 +1,3 @@
-import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
     gap: 24,
   },
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill, //...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(19, 19, 19, 0.68)',
   },
   brandRow: {

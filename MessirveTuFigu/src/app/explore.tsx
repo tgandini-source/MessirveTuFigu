@@ -14,7 +14,7 @@ export default function ExploreScreen() {
       <Image source={pitchSideAssets.hero} style={StyleSheet.absoluteFill} contentFit="cover" />
       <View style={styles.overlay} />
 
-      <PitchHeader title="Matches" subtitle="Intercambios disponibles" showBack={false} showActions={true} />
+      <PitchHeader title="¡La que te falta esta cada ves mas cerca!" subtitle="Intercambios disponibles" showBack={false} showActions={true} />
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.heroBlock}>
