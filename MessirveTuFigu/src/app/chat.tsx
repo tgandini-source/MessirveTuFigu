@@ -35,25 +35,25 @@ export default function ChatScreen() {
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.offerCard}>
           <View style={styles.offerSide}>
-            <Text style={styles.offerLabel}>Missing</Text>
+            <Text style={styles.offerLabel}>La necesitas</Text>
             <Text style={styles.offerName}>{match.incomingSticker.name}</Text>
           </View>
           <Text style={styles.swap}>⇄</Text>
           <View style={styles.offerSideRight}>
-            <Text style={styles.offerLabelRight}>Duplicate</Text>
+            <Text style={styles.offerLabelRight}>La tenes repetida</Text>
             <Text style={styles.offerNameRight}>{match.outgoingSticker.name}</Text>
           </View>
         </View>
 
         <Pressable style={styles.confirmButton}>
-          <Text style={styles.confirmText}>Confirm Proposed Trade</Text>
+          <Text style={styles.confirmText}>Cuando realices el intercambio, confirmalo aqui por favor</Text>
         </Pressable>
 
         <View style={styles.messageRow}>
           <PitchMiniAvatar uri={match.collector.avatarUrl} size={32} />
           <View style={styles.messageBubbleLeft}>
             <Text style={styles.messageText}>
-              Hey! I have the {match.incomingSticker.name} you're looking for, do you still have {match.outgoingSticker.name}?
+              Hey! Yo tengo a {match.incomingSticker.name}, me interesa la que vos tenes, {match.outgoingSticker.name}
             </Text>
             <Text style={styles.messageTime}>14:23</Text>
           </View>
@@ -62,7 +62,7 @@ export default function ChatScreen() {
         <View style={[styles.messageRow, styles.messageRowReverse]}>
           <View style={styles.myBubble}>
             <Text style={styles.myBubbleText}>
-              Yeah, I definitely do. It's a shiny duplicate! Just sent you the trade request.
+              Si, seguro, sin problema, como hacemos?
             </Text>
             <Text style={styles.messageTimeRight}>14:25 ✓✓</Text>
           </View>
@@ -74,8 +74,8 @@ export default function ChatScreen() {
         <View style={styles.messageRow}>
           <PitchMiniAvatar uri={match.collector.avatarUrl} size={32} />
           <View style={styles.messageBubbleLeft}>
-            <Text style={styles.messageText}>Perfect! Checking it now. That completes my USA page! 🔥</Text>
-            <Text style={styles.messageTime}>JUST NOW</Text>
+            <Text style={styles.messageText}>Te parece si nos juntamos en la plaza 25 de Mayo el viernes a las 8?</Text>
+            <Text style={styles.messageTime}>Justo ahora</Text>
           </View>
         </View>
       </ScrollView>
@@ -83,7 +83,7 @@ export default function ChatScreen() {
       <View style={styles.inputBar}>
         <View style={styles.inputShell}>
           <Text style={styles.plus}>＋</Text>
-          <TextInput placeholder="Type a message..." placeholderTextColor="#60708a" style={styles.input} />
+          <TextInput placeholder="Escribe tu mensaje..." placeholderTextColor="#60708a" style={styles.input} />
           <Text style={styles.plus}>☺</Text>
           <Pressable style={styles.sendButton} onPress={() => router.push('/success' as never)}>
             <Text style={styles.sendButtonText}>➤</Text>

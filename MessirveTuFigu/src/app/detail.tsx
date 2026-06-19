@@ -22,7 +22,7 @@ export default function DetailScreen() {
 
   return (
     <View style={styles.root}>
-      <PitchHeader title="Pitch Side Trading" showBack showActions={false} />
+      <PitchHeader title="¡Ya falta poco, inicia un chat para coordinar el cambio!" showBack showActions={false} />
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.cardWrap}>
@@ -30,7 +30,7 @@ export default function DetailScreen() {
           <View style={styles.cardOverlay} />
 
           <View style={styles.cardBadges}>
-            <PitchPill tone="red">Missing</PitchPill>
+            <PitchPill tone="red">La necesitas</PitchPill>
             <PitchPill tone="mint">{`Rarity: ${match.incomingSticker.rarity}`}</PitchPill>
           </View>
 
@@ -96,12 +96,12 @@ export default function DetailScreen() {
           <Pressable
             style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
             onPress={() => router.push('/success' as never)}>
-            <Text style={styles.primaryButtonText}>↔ Proponer intercambio</Text>
+            <Text style={styles.primaryButtonText}>Cuando realices el intercambio, confirmalo aqui por favor</Text>
           </Pressable>
           <Pressable
             style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]}
             onPress={() => router.push(`/chat?matchId=${match.id}` as never)}>
-            <Text style={styles.secondaryButtonText}>Abrir chat</Text>
+            <Text style={styles.secondaryButtonText}>INICIAR UN CHAT</Text>
           </Pressable>
         </View>
       </ScrollView>
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   },
   collectorMeta: {
     color: '#f0c2bf',
-    fontSize: 14,
+    fontSize: 20,
   },
   searchHeader: {
     flexDirection: 'row',

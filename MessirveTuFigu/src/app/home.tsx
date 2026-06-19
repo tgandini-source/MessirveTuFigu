@@ -43,12 +43,13 @@ export default function HomeScreen() {
       <Image source={pitchSideAssets.hero} style={StyleSheet.absoluteFill} contentFit="cover" />
       <View style={styles.overlay} />
 
-      <PitchHeader title="Pitch Side Trading" location="Doha, Qatar" />
+      <PitchHeader title="¡La que te falta te esta esperando!" location="" />
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.pillRow}>
-          <PitchPill tone="mint">MÉXICO 2024</PitchPill>
-          <PitchPill tone="blue">LIVE TRADES</PitchPill>
+          <PitchPill tone="mint">Mundial 2026</PitchPill>
+          <PitchPill tone="mint">FIFA</PitchPill>
+          <PitchPill tone="blue">Panini</PitchPill>
         </View>
 
         <View style={styles.heroBlock}>
@@ -62,24 +63,24 @@ export default function HomeScreen() {
 
         <View style={styles.actionList}>
           <ActionCard
-            title="Explorar figuritas cerca"
-            subtitle="Cerca de ti"
-            icon="⌖"
-            accent="mint"
-            onPress={() => router.push('/loading' as never)}
-          />
-          <ActionCard
-            title="Subir mis repetidas"
-            subtitle="Escanear pack"
+            title="AGREGA TUS REPETIDAS"
+            subtitle="Comenza a participar"
             icon="▣"
             accent="coral"
             onPress={() => router.push('/upload' as never)}
           />
+          
+          <ActionCard
+            title="VERIFICAR TUS MATCH"
+            subtitle="Posibles intercambios"
+            icon="⌖"
+            accent="mint"
+            onPress={() => router.push('/loading' as never)}
+          />
+          <Pressable onPress={() => router.push('/loading?mode=empty' as never)} style={({ pressed }) => [styles.emptyLink, pressed && styles.pressed]}>
+            <Text style={styles.emptyLinkText}>Forzar estado vacío</Text>
+          </Pressable>
         </View>
-
-        <Pressable onPress={() => router.push('/loading?mode=empty' as never)} style={({ pressed }) => [styles.emptyLink, pressed && styles.pressed]}>
-          <Text style={styles.emptyLinkText}>Forzar estado vacío</Text>
-        </Pressable>
 
         <View style={styles.statsBlock}>
           <View style={styles.avatarRow}>
